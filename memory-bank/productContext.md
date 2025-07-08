@@ -33,3 +33,5 @@ Implementar um sistema SaaS multitenant utilizando NestJS e PostgreSQL, com gere
 * DTOs e Controllers para endpoints REST
 * Configuração via variáveis de ambiente (.env)
 * Estrutura de pastas conforme especificado no projectBrief.md
+
+[2025-08-07 08:03:28] - Atualização: O padrão visual do frontend será baseado no Ant Design, com uso complementar de componentes do Quasar quando necessário.
