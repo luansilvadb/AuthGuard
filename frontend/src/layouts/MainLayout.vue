@@ -10,7 +10,7 @@
       <div class="sidebar-header">
         <div class="logo-section">
           <div class="logo-icon">
-            <safety-outlined />
+            <img src="../assets/logo.svg" alt="AuthGuard Logo" class="auth-logo-img" />
           </div>
           <div v-if="!collapsed" class="logo-info">
             <h1 class="app-name">AuthGuard</h1>
@@ -172,7 +172,6 @@ import {
   MenuFoldOutlined,
   UserOutlined,
   LogoutOutlined,
-  SafetyOutlined,
   DownOutlined,
   SyncOutlined,
   LoadingOutlined, // Adicionado LoadingOutlined
@@ -290,7 +289,8 @@ const handleRefreshClick = () => {
 .logo-icon {
   width: 40px;
   height: 40px;
-  background: $primary-blue;
+  background: transparent;
+
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -300,6 +300,10 @@ const handleRefreshClick = () => {
   flex-shrink: 0;
   position: relative;
   top: -4px;
+}
+.auth-logo-img {
+  width: 100%;
+  height: 100%;
 }
 
 .logo-info {
@@ -449,14 +453,13 @@ const handleRefreshClick = () => {
   align-items: center;
   gap: 8px;
   padding: 6px 12px;
-  height: 40px;
+  height: 48px;
   border-radius: 4px;
   color: $auth-text-light;
   @include auth-hover-effect;
 }
 
 .user-avatar {
-  background: $primary-blue;
   color: $auth-text-dark;
 }
 
