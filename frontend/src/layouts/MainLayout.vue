@@ -252,10 +252,37 @@ const handleRefreshClick = () => {
 </script>
 
 <style scoped lang="scss">
-/* Adicionado lang="scss" para usar variáveis */
 @import '../css/app-colors.scss';
 
-/* Sidebar Auth Style */
+@mixin auth-menu-item-base {
+  height: 44px;
+  line-height: 44px;
+  padding: 0 8px 0 24px;
+  border-radius: 4px;
+  color: $auth-text-light;
+  background: transparent;
+  font-size: 16px;
+}
+
+@mixin auth-hover-effect {
+  &:hover {
+    background: $auth-hover-dark;
+    color: $secondary-blue;
+  }
+}
+
+@mixin auth-dropdown-base {
+  background: $auth-background-dark;
+  border: 1px solid $auth-border-dark;
+}
+
+@mixin auth-dropdown-item-hover {
+  &:hover {
+    background: $auth-hover-dark;
+    color: $auth-text-dark;
+  }
+}
+
 .auth-sidebar {
   background: $auth-background-dark;
   border-right: 1px solid $auth-border-dark;
@@ -264,12 +291,11 @@ const handleRefreshClick = () => {
   overflow: hidden;
 }
 
-/* Header da Sidebar */
 .sidebar-header {
-  height: 64px; /* Altura igual ao header principal */
-  display: flex; /* Usar flexbox para centralizar conteúdo */
-  align-items: center; /* Centralizar verticalmente */
-  padding: 0 16px 0 24px; /* Ajustar padding para alinhar */
+  height: 64px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px 0 24px;
   border-bottom: 1px solid $auth-border-dark;
 }
 
@@ -277,7 +303,7 @@ const handleRefreshClick = () => {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 0; /* Remover margem inferior se houver */
+  margin-bottom: 0;
 }
 
 .logo-icon {
@@ -291,16 +317,16 @@ const handleRefreshClick = () => {
   color: $auth-text-dark;
   font-size: 24px;
   flex-shrink: 0;
-  position: relative; /* Adicionado para permitir ajuste de top */
-  top: -4px; /* Ajuste este valor para mover o ícone para cima/baixo */
+  position: relative;
+  top: -4px;
 }
 
 .logo-info {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Alinha os itens à esquerda */
-  justify-content: center; /* Centraliza verticalmente o conteúdo */
-  padding: 0; /* Garante que não há padding */
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0;
 }
 
 .app-name {
@@ -308,24 +334,24 @@ const handleRefreshClick = () => {
   font-size: 16px;
   font-weight: 600;
   color: $secondary-blue;
-  line-height: 1; /* Tighter line height */
-  white-space: nowrap; /* Prevent wrapping */
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .version-language-row {
   display: flex;
   align-items: center;
-  gap: 8px; /* Espaçamento entre versão, refresh e language */
-  margin-top: -2px; /* Ajuste este valor para controlar a proximidade */
+  gap: 8px;
+  margin-top: -2px;
 }
 
 .version {
   font-size: 14px;
-  font-family: 'Inter Variable', sans-serif; /* Aplica a fonte Inter Variable */
+  font-family: 'Inter Variable', sans-serif;
   color: $auth-version-color;
-  margin: 0; /* Ensures no default margin */
-  line-height: 1; /* Tighter line height */
-  white-space: nowrap; /* Prevent wrapping */
+  margin: 0;
+  line-height: 1;
+  white-space: nowrap;
 }
 
 .refresh-icon {
@@ -336,68 +362,63 @@ const handleRefreshClick = () => {
 
 .lang-select {
   width: 60px;
+
+  :deep(.ant-select-selector) {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    color: $auth-text-dark;
+  }
+
+  :deep(.ant-select-arrow) {
+    color: $auth-text-light;
+  }
 }
 
-.lang-select :deep(.ant-select-selector) {
-  background: transparent !important; /* Remove background */
-  border: none !important; /* Remove border */
-  box-shadow: none !important; /* Remove shadow */
-  color: $auth-text-dark !important;
-}
-
-.lang-select :deep(.ant-select-arrow) {
-  color: $auth-text-light !important;
-}
-
-/* Menu Unificado */
 .auth-menu-unified {
   background: transparent;
   border: none;
   padding: 0;
-  flex: 1; /* Para ocupar o espaço restante */
-  overflow-y: auto; /* Para permitir scroll se o conteúdo for grande */
+  flex: 1;
+  overflow-y: auto;
+
+  :deep(.ant-menu-item) {
+    @include auth-menu-item-base;
+  }
+
+  :deep(.ant-menu-item:hover) {
+    background: $auth-hover-dark !important;
+    color: $auth-text-dark !important;
+  }
+
+  :deep(.ant-menu-item-selected) {
+    background: $auth-selected-dark !important;
+    color: $secondary-blue;
+  }
+
+  :deep(.ant-menu-item-selected:hover) {
+    background: $auth-selected-dark !important;
+    color: $secondary-blue !important;
+  }
+
+  :deep(.ant-menu-item-selected::after) {
+    display: none;
+  }
+
+  :deep(.ant-menu-item .anticon) {
+    font-size: 16px;
+    margin-right: 12px;
+  }
+
+  :deep(.ant-menu-item-group-title) {
+    color: $auth-text-group-title;
+    font-size: 12px;
+    padding-left: 16px;
+    margin-top: 16px;
+    margin-bottom: 8px;
+  }
 }
 
-.auth-menu-unified :deep(.ant-menu-item) {
-  height: 44px; /* Altura padrão para todos os itens */
-  line-height: 44px;
-  padding: 0 8px 0 24px; /* top right bottom left (ajustado para alinhar) */
-  border-radius: 4px;
-  color: $auth-text-light;
-  background: transparent;
-  font-size: 16px; /* Tamanho da fonte padrão */
-}
-
-.auth-menu-unified :deep(.ant-menu-item:hover) {
-  background: $auth-hover-dark !important;
-  color: $auth-text-dark !important;
-  padding: 0 8px 0 24px !important; /* Mantém o padding ao hover */
-}
-
-.auth-menu-unified :deep(.ant-menu-item-selected) {
-  background: $auth-selected-dark !important;
-  color: $secondary-blue !important;
-  padding: 0 8px 0 24px !important; /* Mantém o padding ao selecionar */
-}
-
-.auth-menu-unified :deep(.ant-menu-item-selected::after) {
-  display: none;
-}
-
-.auth-menu-unified :deep(.ant-menu-item .anticon) {
-  font-size: 16px;
-  margin-right: 12px;
-}
-
-.auth-menu-unified :deep(.ant-menu-item-group-title) {
-  color: $auth-text-group-title; /* Cor para os títulos dos grupos */
-  font-size: 12px;
-  padding-left: 16px;
-  margin-top: 16px;
-  margin-bottom: 8px;
-}
-
-/* Esconder texto quando colapsado */
 .auth-sidebar.ant-layout-sider-collapsed
   .auth-menu-unified
   :deep(.ant-menu-item .ant-menu-title-content) {
@@ -405,19 +426,20 @@ const handleRefreshClick = () => {
 }
 
 .dark-mode-switch {
-  margin-left: auto; /* Empurra o switch para a direita */
+  margin-left: auto;
 }
 
-.logout-item :deep(.anticon) {
-  color: $auth-red-error;
+.logout-item {
+  :deep(.anticon) {
+    color: $auth-red-error;
+  }
+
+  &:hover {
+    background: $auth-red-error;
+    color: $auth-text-dark;
+  }
 }
 
-.logout-item:hover {
-  background: $auth-red-error !important;
-  color: $auth-text-dark !important;
-}
-
-/* Main Layout */
 .main-layout {
   background: $auth-background-dark;
 }
@@ -439,16 +461,12 @@ const handleRefreshClick = () => {
 }
 
 .collapse-toggle {
-  color: $auth-text-light !important;
-  font-size: 16px !important;
-  width: 32px !important;
-  height: 32px !important;
-  border-radius: 4px !important;
-}
-
-.collapse-toggle:hover {
-  background: $auth-hover-dark !important;
-  color: $secondary-blue !important;
+  color: $auth-text-light;
+  font-size: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  @include auth-hover-effect;
 }
 
 .page-title {
@@ -467,19 +485,16 @@ const handleRefreshClick = () => {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 12px !important;
-  height: 40px !important;
-  border-radius: 4px !important;
-  color: $auth-text-light !important;
-}
-
-.user-menu:hover {
-  background: $auth-hover-dark !important;
+  padding: 6px 12px;
+  height: 40px;
+  border-radius: 4px;
+  color: $auth-text-light;
+  @include auth-hover-effect;
 }
 
 .user-avatar {
-  background: $primary-blue !important;
-  color: $auth-text-dark !important;
+  background: $primary-blue;
+  color: $auth-text-dark;
 }
 
 .username {
@@ -487,21 +502,20 @@ const handleRefreshClick = () => {
   color: $auth-text-dark;
 }
 
-.user-dropdown :deep(.ant-menu) {
-  background: $auth-background-dark !important;
-  border: 1px solid $auth-border-dark !important;
+.user-dropdown {
+  :deep(.ant-menu) {
+    @include auth-dropdown-base;
+  }
+
+  :deep(.ant-menu-item) {
+    color: $auth-text-light;
+  }
+
+  :deep(.ant-menu-item:hover) {
+    @include auth-dropdown-item-hover;
+  }
 }
 
-.user-dropdown :deep(.ant-menu-item) {
-  color: $auth-text-light !important;
-}
-
-.user-dropdown :deep(.ant-menu-item:hover) {
-  background: $auth-hover-dark !important;
-  color: $auth-text-dark !important;
-}
-
-/* Content */
 .auth-content {
   padding: 24px;
   background: $auth-background-dark;
@@ -509,7 +523,6 @@ const handleRefreshClick = () => {
   color: $auth-text-dark;
 }
 
-/* Responsividade */
 @media (max-width: 768px) {
   .auth-header {
     padding: 0 16px 0 24px;

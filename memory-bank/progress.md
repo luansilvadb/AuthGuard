@@ -110,3 +110,21 @@ This file tracks the project's progress using a task list format.
 [2025-07-09 04:58:14] - Ajustado: `a-select` do idioma sem fundo padrão, aplicando estilo apenas nas opções em MainLayout.vue.
 
 [2025-07-09 05:01:12] - Ajustado: Alinhamento vertical do ícone do logo (`SafetyOutlined`) no header da sidebar para corresponder à imagem de referência quando colapsado.
+
+[2025-07-09 11:32:49] - Refatorado: Removidos `!important`s desnecessários do CSS em `frontend/src/layouts/MainLayout.vue` para melhorar a especificidade e legibilidade.
+
+[2025-07-09 11:33:41] - Refatorado: Removido padding repetido em regras de hover/selected no CSS de `frontend/src/layouts/MainLayout.vue`.
+
+[2025-07-09 11:34:29] - Refatorado: Criado mixin `@mixin auth-menu-item-base` para reutilização de estilos de itens de menu em `frontend/src/layouts/MainLayout.vue`.
+
+[2025-07-09 11:35:08] - Refatorado: Criado mixin `@mixin auth-hover-effect` para reutilização de estilos de hover em `frontend/src/layouts/MainLayout.vue`.
+
+[2025-07-09 11:35:47] - Refatorado: Criados mixins `@mixin auth-dropdown-base` e `@mixin auth-dropdown-item-hover` para reutilização de estilos de dropdown em `frontend/src/layouts/MainLayout.vue`.
+
+[2025-07-09 12:01:52] - Atualizado: Variáveis de cor `$auth-background-dark`, `$auth-hover-dark` e `$auth-selected-dark` em `frontend/src/css/app-colors.scss` com as cores fornecidas para a sidebar.
+
+[2025-07-09 12:04:57] - Ajustado: Adicionado `!important` ao `background` nos estados `:hover` e `:selected` dos itens de menu em `frontend/src/layouts/MainLayout.vue` para forçar a aplicação das cores da sidebar.
+
+[2025-07-09 12:08:47] - Ajustado: Adicionado `!important` ao `color` no estado `:hover` dos itens de menu em `frontend/src/layouts/MainLayout.vue` para manter a cor do texto no hover.
+
+[2025-07-09 12:11:40] - Ajustado: Adicionada regra CSS para desativar o efeito de hover em itens de menu já selecionados em `frontend/src/layouts/MainLayout.vue`.
