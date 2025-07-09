@@ -1,5 +1,18 @@
-// Provider para criar schema global automaticamente
+import { Module, MiddlewareConsumer } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { ServeStaticModule } from '@nestjs/serve-static';
 import { DataSource } from 'typeorm';
+import { join } from 'path';
+
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
+import { GlobalModule } from './global/global.module';
+import { Tenant } from './global/entities/tenant.entity';
+import { TenantMiddleware } from './shared/database/tenant-aware-context';
+import { TenantsModule } from './tenants/tenants.module';
+import { User } from './global/entities/user.entity';
 
 const createGlobalSchema = {
   provide: 'GLOBAL_SCHEMA',
@@ -17,20 +30,13 @@ const createGlobalSchema = {
     await dataSource.destroy();
   },
 };
-import { Module, MiddlewareConsumer } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { TenantMiddleware } from './shared/database/tenant-aware-context';
-import { GlobalModule } from './global/global.module';
-import { TenantsModule } from './tenants/tenants.module';
-import { User } from './global/entities/user.entity';
-import { Tenant } from './global/entities/tenant.entity';
-import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', '..', 'frontend', 'dist', 'spa'),
+      exclude: ['/api/(.*)'],
+    }),
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'postgres',
