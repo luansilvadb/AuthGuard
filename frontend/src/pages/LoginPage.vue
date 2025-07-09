@@ -121,6 +121,7 @@ import {
   MailOutlined,
   LockOutlined
 } from '@ant-design/icons-vue';
+import { Cookies } from 'quasar';
 
 const router = useRouter();
 const formRef = ref();
@@ -164,19 +165,29 @@ const internalInstance = getCurrentInstance();
 async function onLogin() {
   try {
     loading.value = true;
-    // Real API call
     const $api = internalInstance?.appContext.config.globalProperties.$api;
     if (!$api) {
       throw new Error('API client not available');
     }
-    await $api.post('/auth/login', {
+    const response = await $api.post('/auth/login', {
       email: loginForm.value.email,
-      password: loginForm.value.password
+      password: loginForm.value.password,
     });
-    void router.push('/home');
+    const { access_token } = response.data;
+    if (access_token) {
+      const cookieOptions: Parameters<typeof Cookies.set>[2] = {
+        secure: process.env.NODE_ENV === 'production',
+      };
+      if (rememberMe.value) {
+        cookieOptions.expires = 7; // 7 days
+      }
+      Cookies.set('token', access_token, cookieOptions);
+      void router.push('/home');
+    } else {
+      console.error('Token not found in response:', response.data);
+    }
   } catch (error) {
     console.error('Erro no login:', error);
-    // Optionally show error to user
   } finally {
     loading.value = false;
   }
