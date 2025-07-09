@@ -2,99 +2,166 @@
   <a-layout style="min-height: 100vh">
     <a-layout-sider
       v-model:collapsed="collapsed"
-      collapsible
-      :width="260"
+      :width="250"
       :collapsed-width="80"
-      class="enterprise-sider"
+      class="auth-sidebar"
     >
-      <div class="logo">
-        <div class="logo-icon">
-          <safety-outlined />
+      <!-- Header com Logo e Versão -->
+      <div class="sidebar-header">
+        <div class="logo-section">
+          <div class="logo-icon">
+            <safety-outlined />
+          </div>
+          <div v-if="!collapsed" class="logo-info">
+            <h1 class="app-name">AuthGuard</h1>
+            <div class="version-language-row">
+              <span class="version">v2.2.10</span>
+              <template v-if="isRefreshing">
+                <loading-outlined class="refresh-icon" />
+              </template>
+              <template v-else>
+                <sync-outlined class="refresh-icon" @click="handleRefreshClick" />
+              </template>
+              <a-select v-model:value="selectedLanguage" size="small" class="lang-select">
+                <a-select-option value="PT">PT</a-select-option>
+                <a-select-option value="EN">EN</a-select-option>
+              </a-select>
+            </div>
+          </div>
         </div>
-        <h1 v-if="!collapsed" class="logo-text">AuthGuard</h1>
       </div>
 
+      <!-- Menu Unificado -->
       <a-menu
         v-model:selectedKeys="selectedKeys"
-        theme="light"
         mode="inline"
-        class="enterprise-menu"
+        class="auth-menu-unified"
         @click="handleMenuClick"
       >
-        <a-menu-item key="/home">
-          <template #icon>
-            <home-outlined />
-          </template>
-          <span>Dashboard</span>
-        </a-menu-item>
+        <a-menu-group title="Principal">
+          <a-menu-item key="/home">
+            <template #icon>
+              <home-outlined />
+            </template>
+            <span>Dashboard</span>
+          </a-menu-item>
 
-        <a-menu-item key="/users">
-          <template #icon>
-            <user-outlined />
-          </template>
-          <span>Usuários</span>
-        </a-menu-item>
+          <a-menu-item key="/actions">
+            <template #icon>
+              <play-circle-outlined />
+            </template>
+            <span>Actions</span>
+          </a-menu-item>
 
-        <a-menu-item key="/tenants">
-          <template #icon>
-            <apartment-outlined />
-          </template>
-          <span>Tenants</span>
-        </a-menu-item>
+          <a-menu-item key="/monitor">
+            <template #icon>
+              <bar-chart-outlined />
+            </template>
+            <span>Monitor</span>
+          </a-menu-item>
 
-        <a-menu-item key="/settings">
-          <template #icon>
-            <setting-outlined />
-          </template>
-          <span>Configurações</span>
-        </a-menu-item>
+          <a-menu-item key="/tenants">
+            <template #icon>
+              <global-outlined />
+            </template>
+            <span>Domains</span>
+          </a-menu-item>
+
+          <a-menu-item key="/settings">
+            <template #icon>
+              <setting-outlined />
+            </template>
+            <span>Settings</span>
+          </a-menu-item>
+        </a-menu-group>
+
+        <a-menu-group title="Recursos">
+          <a-menu-item key="docs">
+            <template #icon>
+              <book-outlined />
+            </template>
+            <span>Documentation</span>
+          </a-menu-item>
+
+          <a-menu-item key="discord">
+            <template #icon>
+              <message-outlined />
+            </template>
+            <span>Discord</span>
+          </a-menu-item>
+
+          <a-menu-item key="feedback">
+            <template #icon>
+              <comment-outlined />
+            </template>
+            <span>Feedback</span>
+          </a-menu-item>
+
+          <a-menu-item key="changelog">
+            <template #icon>
+              <star-outlined />
+            </template>
+            <span>Changelog</span>
+          </a-menu-item>
+        </a-menu-group>
+
+        <a-menu-group title="Ações">
+          <a-menu-item key="_dark_mode_toggle">
+            <template #icon>
+              <bulb-outlined />
+            </template>
+            <span>Dark Mode</span>
+            <a-switch v-model:checked="darkMode" size="small" class="dark-mode-switch" />
+          </a-menu-item>
+
+          <a-menu-item key="_logout_action" class="logout-item">
+            <template #icon>
+              <logout-outlined />
+            </template>
+            <span>Logout</span>
+          </a-menu-item>
+        </a-menu-group>
       </a-menu>
     </a-layout-sider>
 
-    <a-layout>
-      <a-layout-header class="enterprise-header">
+    <a-layout class="main-layout">
+      <a-layout-header class="auth-header">
         <div class="header-left">
           <a-button
             type="text"
             :icon="collapsed ? h(MenuUnfoldOutlined) : h(MenuFoldOutlined)"
             @click="toggleCollapsed"
-            class="collapse-btn"
+            class="collapse-toggle"
           />
-          <div class="page-title">
-            <h1>{{ currentRouteName }}</h1>
-          </div>
+          <h1 class="page-title">{{ currentRouteName }}</h1>
         </div>
 
         <div class="header-right">
-          <a-space :size="16">
-            <a-button type="text" shape="circle" :icon="h(BellOutlined)" class="header-action" />
+          <a-dropdown placement="bottomRight">
+            <a-button type="text" class="user-menu">
+              <a-avatar :size="32" :icon="h(UserOutlined)" class="user-avatar" />
+              <span class="username">Admin</span>
+              <down-outlined />
+            </a-button>
 
-            <a-dropdown placement="bottomRight">
-              <a-button type="text" class="user-profile">
-                <a-avatar :size="32" :icon="h(UserOutlined)" />
-                <span v-if="!isMobile" class="username">Admin</span>
-                <down-outlined />
-              </a-button>
-
-              <template #overlay>
-                <a-menu>
-                  <a-menu-item key="profile">
-                    <user-outlined />
-                    Perfil
-                  </a-menu-item>
-                  <a-menu-divider />
-                  <a-menu-item key="logout" @click="handleLogout">
-                    <logout-outlined />
-                    Sair
-                  </a-menu-item>
-                </a-menu>
-              </template>
-            </a-dropdown>
-          </a-space>
+            <template #overlay>
+              <a-menu class="user-dropdown">
+                <a-menu-item key="profile">
+                  <user-outlined />
+                  Perfil
+                </a-menu-item>
+                <a-menu-divider />
+                <a-menu-item key="logout" @click="handleLogout">
+                  <logout-outlined />
+                  Sair
+                </a-menu-item>
+              </a-menu>
+            </template>
+          </a-dropdown>
         </div>
       </a-layout-header>
 
-      <a-layout-content class="enterprise-content">
+      <a-layout-content class="auth-content">
         <router-view />
       </a-layout-content>
     </a-layout>
@@ -102,20 +169,29 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watchEffect, computed, h, onMounted, onUnmounted } from 'vue';
+import { ref, computed, h } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { Cookies } from 'quasar';
+import { message } from 'ant-design-vue'; // Importar o componente message
 import {
   HomeOutlined,
-  UserOutlined,
-  ApartmentOutlined,
+  PlayCircleOutlined,
+  BarChartOutlined,
+  GlobalOutlined,
   SettingOutlined,
+  BookOutlined,
+  MessageOutlined,
+  CommentOutlined,
+  StarOutlined,
+  BulbOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-  BellOutlined,
+  UserOutlined,
   LogoutOutlined,
   SafetyOutlined,
   DownOutlined,
+  SyncOutlined,
+  LoadingOutlined, // Adicionado LoadingOutlined
 } from '@ant-design/icons-vue';
 
 const router = useRouter();
@@ -123,41 +199,36 @@ const route = useRoute();
 
 const collapsed = ref(false);
 const selectedKeys = ref<string[]>([]);
-const isMobile = ref(false);
+const selectedLanguage = ref('EN'); // Alterado para EN conforme a imagem
+const darkMode = ref(true);
+const isRefreshing = ref(false); // Nova ref para controlar a animação de refresh
 
 const routeNames: Record<string, string> = {
   '/home': 'Dashboard',
-  '/users': 'Usuários',
-  '/tenants': 'Tenants',
-  '/settings': 'Configurações',
+  '/actions': 'Actions',
+  '/monitor': 'Monitor',
+  '/tenants': 'Domains',
+  '/settings': 'Settings',
 };
 
 const currentRouteName = computed(() => {
   return routeNames[route.path] || 'Dashboard';
 });
 
-const checkMobile = () => {
-  isMobile.value = window.innerWidth < 768;
-  if (isMobile.value) {
-    collapsed.value = true;
-  }
-};
-
-onMounted(() => {
-  checkMobile();
-  window.addEventListener('resize', checkMobile);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('resize', checkMobile);
-});
-
-watchEffect(() => {
-  selectedKeys.value = [route.path];
-});
-
 const handleMenuClick = ({ key }: { key: string }) => {
-  void router.push(key);
+  selectedKeys.value = [key]; // Sempre seleciona o item clicado
+
+  if (key === '_dark_mode_toggle') {
+    // Ação do toggle Dark Mode será tratada pelo v-model do a-switch
+  } else if (key === '_logout_action') {
+    handleLogout();
+  } else if (key.startsWith('/')) {
+    // Não faz nada para as rotas do menu principal por enquanto, apenas seleciona
+    console.log(`Navegação desativada para: ${key}`);
+  } else {
+    // Para outros itens que não são rotas (docs, discord, etc.), também não navega
+    console.log(`Item secundário clicado: ${key}`);
+  }
 };
 
 const toggleCollapsed = () => {
@@ -168,94 +239,197 @@ const handleLogout = () => {
   Cookies.remove('token');
   void router.push('/login');
 };
+
+const handleRefreshClick = () => {
+  isRefreshing.value = true;
+  message.success('Atualizado!'); // Exibe a mensagem de sucesso
+
+  // Simula um tempo de "refresh" e desativa a animação
+  setTimeout(() => {
+    isRefreshing.value = false;
+  }, 1000); // Animação de 1 segundo
+};
 </script>
 
-<style scoped>
-/* Sider Enterprise */
-.enterprise-sider {
-  background: #ffffff;
-  border-right: 1px solid #f0f0f0;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+<style scoped lang="scss">
+/* Adicionado lang="scss" para usar variáveis */
+@import '../css/app-colors.scss';
+
+/* Sidebar Auth Style */
+.auth-sidebar {
+  background: $auth-background-dark;
+  border-right: 1px solid $auth-border-dark;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-/* Logo */
-.logo {
-  height: 64px;
+/* Header da Sidebar */
+.sidebar-header {
+  height: 64px; /* Altura igual ao header principal */
+  display: flex; /* Usar flexbox para centralizar conteúdo */
+  align-items: center; /* Centralizar verticalmente */
+  padding: 0 16px 0 24px; /* Ajustar padding para alinhar */
+  border-bottom: 1px solid $auth-border-dark;
+}
+
+.logo-section {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  padding: 0 24px;
-  border-bottom: 1px solid #f0f0f0;
-  margin-bottom: 8px;
+  gap: 12px;
+  margin-bottom: 0; /* Remover margem inferior se houver */
 }
 
 .logo-icon {
+  width: 40px;
+  height: 40px;
+  background: $primary-blue;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
-  background: #1e40af;
-  color: white;
-  font-size: 16px;
+  color: $auth-text-dark;
+  font-size: 24px;
   flex-shrink: 0;
+  position: relative; /* Adicionado para permitir ajuste de top */
+  top: -4px; /* Ajuste este valor para mover o ícone para cima/baixo */
 }
 
-.logo-text {
-  margin: 0 0 0 12px;
-  font-size: 18px;
+.logo-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinha os itens à esquerda */
+  justify-content: center; /* Centraliza verticalmente o conteúdo */
+  padding: 0; /* Garante que não há padding */
+}
+
+.app-name {
+  margin: 0;
+  font-size: 16px;
   font-weight: 600;
-  color: #1e40af;
-  white-space: nowrap;
+  color: $secondary-blue;
+  line-height: 1; /* Tighter line height */
+  white-space: nowrap; /* Prevent wrapping */
 }
 
-/* Menu Enterprise */
-.enterprise-menu {
-  border: none;
+.version-language-row {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espaçamento entre versão, refresh e language */
+  margin-top: -2px; /* Ajuste este valor para controlar a proximidade */
+}
+
+.version {
+  font-size: 14px;
+  font-family: 'Inter Variable', sans-serif; /* Aplica a fonte Inter Variable */
+  color: $auth-version-color;
+  margin: 0; /* Ensures no default margin */
+  line-height: 1; /* Tighter line height */
+  white-space: nowrap; /* Prevent wrapping */
+}
+
+.refresh-icon {
+  font-size: 12px;
+  color: $auth-text-light;
+  cursor: pointer;
+}
+
+.lang-select {
+  width: 60px;
+}
+
+.lang-select :deep(.ant-select-selector) {
+  background: transparent !important; /* Remove background */
+  border: none !important; /* Remove border */
+  box-shadow: none !important; /* Remove shadow */
+  color: $auth-text-dark !important;
+}
+
+.lang-select :deep(.ant-select-arrow) {
+  color: $auth-text-light !important;
+}
+
+/* Menu Unificado */
+.auth-menu-unified {
   background: transparent;
-  padding: 0 16px;
+  border: none;
+  padding: 0;
+  flex: 1; /* Para ocupar o espaço restante */
+  overflow-y: auto; /* Para permitir scroll se o conteúdo for grande */
 }
 
-.enterprise-menu .ant-menu-item {
-  height: 44px;
+.auth-menu-unified :deep(.ant-menu-item) {
+  height: 44px; /* Altura padrão para todos os itens */
   line-height: 44px;
-  margin: 4px 0;
-  border-radius: 6px;
-  color: #4b5563;
-  font-weight: 500;
+  padding: 0 8px 0 24px; /* top right bottom left (ajustado para alinhar) */
+  border-radius: 4px;
+  color: $auth-text-light;
+  background: transparent;
+  font-size: 16px; /* Tamanho da fonte padrão */
 }
 
-.enterprise-menu .ant-menu-item:hover {
-  background-color: #f3f4f6;
-  color: #1e40af;
+.auth-menu-unified :deep(.ant-menu-item:hover) {
+  background: $auth-hover-dark !important;
+  color: $auth-text-dark !important;
+  padding: 0 8px 0 24px !important; /* Mantém o padding ao hover */
 }
 
-.enterprise-menu .ant-menu-item-selected {
-  background-color: #eff6ff !important;
-  color: #1e40af !important;
-  border-right: none;
+.auth-menu-unified :deep(.ant-menu-item-selected) {
+  background: $auth-selected-dark !important;
+  color: $secondary-blue !important;
+  padding: 0 8px 0 24px !important; /* Mantém o padding ao selecionar */
 }
 
-.enterprise-menu .ant-menu-item-selected::after {
+.auth-menu-unified :deep(.ant-menu-item-selected::after) {
   display: none;
 }
 
-.enterprise-menu .ant-menu-item .anticon {
+.auth-menu-unified :deep(.ant-menu-item .anticon) {
   font-size: 16px;
   margin-right: 12px;
 }
 
-/* Header Enterprise */
-.enterprise-header {
-  background: #ffffff;
-  border-bottom: 1px solid #f0f0f0;
+.auth-menu-unified :deep(.ant-menu-item-group-title) {
+  color: $auth-text-group-title; /* Cor para os títulos dos grupos */
+  font-size: 12px;
+  padding-left: 16px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+}
+
+/* Esconder texto quando colapsado */
+.auth-sidebar.ant-layout-sider-collapsed
+  .auth-menu-unified
+  :deep(.ant-menu-item .ant-menu-title-content) {
+  display: none;
+}
+
+.dark-mode-switch {
+  margin-left: auto; /* Empurra o switch para a direita */
+}
+
+.logout-item :deep(.anticon) {
+  color: $auth-red-error;
+}
+
+.logout-item:hover {
+  background: $auth-red-error !important;
+  color: $auth-text-dark !important;
+}
+
+/* Main Layout */
+.main-layout {
+  background: $auth-background-dark;
+}
+
+.auth-header {
+  background: $auth-background-dark;
+  border-bottom: 1px solid $auth-border-dark;
   padding: 0 24px;
   height: 64px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
 .header-left {
@@ -264,24 +438,24 @@ const handleLogout = () => {
   gap: 16px;
 }
 
-.collapse-btn {
-  color: #6b7280;
-  font-size: 16px;
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
+.collapse-toggle {
+  color: $auth-text-light !important;
+  font-size: 16px !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 4px !important;
 }
 
-.collapse-btn:hover {
-  background-color: #f3f4f6;
-  color: #1e40af;
+.collapse-toggle:hover {
+  background: $auth-hover-dark !important;
+  color: $secondary-blue !important;
 }
 
-.page-title h1 {
+.page-title {
   margin: 0;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
-  color: #111827;
+  color: $auth-text-dark;
 }
 
 .header-right {
@@ -289,52 +463,59 @@ const handleLogout = () => {
   align-items: center;
 }
 
-.header-action {
-  color: #6b7280;
-  font-size: 16px;
-  width: 32px;
-  height: 32px;
-  border-radius: 6px;
-}
-
-.header-action:hover {
-  background-color: #f3f4f6;
-  color: #1e40af;
-}
-
-.user-profile {
+.user-menu {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 12px;
-  height: 40px;
-  border-radius: 8px;
-  color: #4b5563;
+  padding: 6px 12px !important;
+  height: 40px !important;
+  border-radius: 4px !important;
+  color: $auth-text-light !important;
 }
 
-.user-profile:hover {
-  background-color: #f3f4f6;
+.user-menu:hover {
+  background: $auth-hover-dark !important;
+}
+
+.user-avatar {
+  background: $primary-blue !important;
+  color: $auth-text-dark !important;
 }
 
 .username {
   font-weight: 500;
-  font-size: 14px;
+  color: $auth-text-dark;
 }
 
-/* Content Enterprise */
-.enterprise-content {
+.user-dropdown :deep(.ant-menu) {
+  background: $auth-background-dark !important;
+  border: 1px solid $auth-border-dark !important;
+}
+
+.user-dropdown :deep(.ant-menu-item) {
+  color: $auth-text-light !important;
+}
+
+.user-dropdown :deep(.ant-menu-item:hover) {
+  background: $auth-hover-dark !important;
+  color: $auth-text-dark !important;
+}
+
+/* Content */
+.auth-content {
   padding: 24px;
-  background: #f9fafb;
+  background: $auth-background-dark;
   min-height: calc(100vh - 64px);
+  color: $auth-text-dark;
 }
 
 /* Responsividade */
 @media (max-width: 768px) {
-  .enterprise-header {
-    padding: 0 16px;
+  .auth-header {
+    padding: 0 16px 0 24px;
   }
 
-  .enterprise-content {
+  .auth-content {
     padding: 16px;
   }
 
@@ -344,17 +525,13 @@ const handleLogout = () => {
 }
 
 @media (max-width: 480px) {
-  .page-title h1 {
-    font-size: 18px;
-  }
-
-  .enterprise-sider {
+  .auth-sidebar {
     position: fixed;
     z-index: 1000;
     height: 100vh;
   }
 
-  .enterprise-content {
+  .auth-content {
     padding: 12px;
   }
 }

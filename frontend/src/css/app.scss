@@ -1,2 +1,9 @@
+@import 'app-colors.scss';
 // app global css in SCSS form
 // Ant Design Vue global styles
+
+@import url('https://fonts.googleapis.com/css2?family=Inter+Variable:wght@100..900&display=swap');
+
+body {
+  font-family: 'Inter Variable', sans-serif;
+}
