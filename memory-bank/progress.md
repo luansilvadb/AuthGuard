@@ -128,3 +128,5 @@ This file tracks the project's progress using a task list format.
 [2025-07-09 12:08:47] - Ajustado: Adicionado `!important` ao `color` no estado `:hover` dos itens de menu em `frontend/src/layouts/MainLayout.vue` para manter a cor do texto no hover.
 
 [2025-07-09 12:11:40] - Ajustado: Adicionada regra CSS para desativar o efeito de hover em itens de menu já selecionados em `frontend/src/layouts/MainLayout.vue`.
+
+[2025-07-09 12:19:04] - Corrigido: Removida importação não utilizada de `BulbOutlined` em `frontend/src/layouts/MainLayout.vue`.

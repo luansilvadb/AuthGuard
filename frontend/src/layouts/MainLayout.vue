@@ -105,22 +105,7 @@
           </a-menu-item>
         </a-menu-group>
 
-        <a-menu-group title="Ações">
-          <a-menu-item key="_dark_mode_toggle">
-            <template #icon>
-              <bulb-outlined />
-            </template>
-            <span>Dark Mode</span>
-            <a-switch v-model:checked="darkMode" size="small" class="dark-mode-switch" />
-          </a-menu-item>
-
-          <a-menu-item key="_logout_action" class="logout-item">
-            <template #icon>
-              <logout-outlined />
-            </template>
-            <span>Logout</span>
-          </a-menu-item>
-        </a-menu-group>
+        <!-- Removida a seção "Ações" -->
       </a-menu>
     </a-layout-sider>
 
@@ -183,7 +168,6 @@ import {
   MessageOutlined,
   CommentOutlined,
   StarOutlined,
-  BulbOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   UserOutlined,
@@ -200,7 +184,7 @@ const route = useRoute();
 const collapsed = ref(false);
 const selectedKeys = ref<string[]>([]);
 const selectedLanguage = ref('EN'); // Alterado para EN conforme a imagem
-const darkMode = ref(true);
+// const darkMode = ref(true); // Removido
 const isRefreshing = ref(false); // Nova ref para controlar a animação de refresh
 
 const routeNames: Record<string, string> = {
@@ -218,11 +202,8 @@ const currentRouteName = computed(() => {
 const handleMenuClick = ({ key }: { key: string }) => {
   selectedKeys.value = [key]; // Sempre seleciona o item clicado
 
-  if (key === '_dark_mode_toggle') {
-    // Ação do toggle Dark Mode será tratada pelo v-model do a-switch
-  } else if (key === '_logout_action') {
-    handleLogout();
-  } else if (key.startsWith('/')) {
+  // Removida a lógica de toggle Dark Mode e Logout da sidebar, pois os botões foram removidos
+  if (key.startsWith('/')) {
     // Não faz nada para as rotas do menu principal por enquanto, apenas seleciona
     console.log(`Navegação desativada para: ${key}`);
   } else {
@@ -401,10 +382,6 @@ const handleRefreshClick = () => {
     color: $secondary-blue !important;
   }
 
-  :deep(.ant-menu-item-selected::after) {
-    display: none;
-  }
-
   :deep(.ant-menu-item .anticon) {
     font-size: 16px;
     margin-right: 12px;
@@ -425,21 +402,7 @@ const handleRefreshClick = () => {
   display: none;
 }
 
-.dark-mode-switch {
-  margin-left: auto;
-}
-
-.logout-item {
-  :deep(.anticon) {
-    color: $auth-red-error;
-  }
-
-  &:hover {
-    background: $auth-red-error;
-    color: $auth-text-dark;
-  }
-}
-
+// Removido .dark-mode-switch e .logout-item
 .main-layout {
   background: $auth-background-dark;
 }
