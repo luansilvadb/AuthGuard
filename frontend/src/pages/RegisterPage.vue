@@ -5,11 +5,7 @@
       <div class="content-wrapper" :class="{ 'content-animate': pageLoaded }">
         <div class="brand-section" :class="{ 'fade-in': pageLoaded }">
           <div class="logo-container">
-            <a-avatar :size="72" class="brand-logo">
-              <template #icon>
-                <safety-outlined />
-              </template>
-            </a-avatar>
+            <img :src="AuthGuardLogo" alt="AuthGuard Logo" class="brand-logo" />
           </div>
           <h1 class="brand-title">AuthGuard Enterprise</h1>
           <p class="brand-subtitle">Junte-se à nossa plataforma</p>
@@ -17,9 +13,13 @@
 
         <div class="features-section" :class="{ 'slide-up': pageLoaded }">
           <h3 class="features-title">Vantagens da Plataforma</h3>
-          <div class="feature-item" v-for="(feature, index) in features" :key="index"
-               :class="{ 'feature-animate': pageLoaded }"
-               :style="{ 'animation-delay': `${0.2 + index * 0.05}s` }">
+          <div
+            class="feature-item"
+            v-for="(feature, index) in features"
+            :key="index"
+            :class="{ 'feature-animate': pageLoaded }"
+            :style="{ 'animation-delay': `${0.2 + index * 0.05}s` }"
+          >
             <check-circle-filled class="feature-icon" />
             <span>{{ feature }}</span>
           </div>
@@ -146,13 +146,8 @@
 <script setup lang="ts">
 import { ref, onMounted, getCurrentInstance } from 'vue';
 import { useRouter } from 'vue-router';
-import {
-  SafetyOutlined,
-  CheckCircleFilled,
-  UserOutlined,
-  MailOutlined,
-  LockOutlined
-} from '@ant-design/icons-vue';
+import { CheckCircleFilled, UserOutlined, MailOutlined, LockOutlined } from '@ant-design/icons-vue';
+import AuthGuardLogo from '../assets/logo.svg';
 import { message } from 'ant-design-vue';
 import { AxiosError } from 'axios';
 
@@ -164,14 +159,14 @@ const features = [
   'Configuração Rápida',
   'Suporte 24/7',
   'Ambiente Multi-Tenant',
-  'Conformidade LGPD'
+  'Conformidade LGPD',
 ];
 
 const registerForm = ref({
   name: '',
   email: '',
   password: '',
-  confirmPassword: ''
+  confirmPassword: '',
 });
 
 const acceptTerms = ref(false);
@@ -180,11 +175,11 @@ const loading = ref(false);
 const registerRules = {
   name: [
     { required: true, message: 'Por favor, digite seu nome completo', trigger: 'blur' },
-    { min: 2, message: 'Nome deve ter pelo menos 2 caracteres', trigger: 'blur' }
+    { min: 2, message: 'Nome deve ter pelo menos 2 caracteres', trigger: 'blur' },
   ],
   email: [
     { required: true, message: 'Por favor, digite seu e-mail', trigger: 'blur' },
-    { type: 'email', message: 'Formato de e-mail inválido', trigger: 'blur' }
+    { type: 'email', message: 'Formato de e-mail inválido', trigger: 'blur' },
   ],
   password: [
     { required: true, message: 'Por favor, digite sua senha', trigger: 'blur' },
@@ -192,8 +187,8 @@ const registerRules = {
     {
       pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/,
       message: 'Senha deve conter ao menos 1 letra minúscula, 1 maiúscula e 1 número',
-      trigger: 'blur'
-    }
+      trigger: 'blur',
+    },
   ],
   confirmPassword: [
     { required: true, message: 'Por favor, confirme sua senha', trigger: 'blur' },
@@ -204,9 +199,9 @@ const registerRules = {
         }
         return Promise.resolve();
       },
-      trigger: 'blur'
-    }
-  ]
+      trigger: 'blur',
+    },
+  ],
 };
 
 onMounted(() => {
@@ -228,7 +223,7 @@ async function onRegister() {
     await $api.post('/users', {
       name: registerForm.value.name,
       email: registerForm.value.email,
-      password: registerForm.value.password
+      password: registerForm.value.password,
     });
     message.success('Cadastro realizado com sucesso! Faça login para continuar.');
     void router.push('/login');
@@ -317,10 +312,7 @@ function goToLogin() {
 }
 
 .brand-logo {
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-  backdrop-filter: blur(10px);
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  height: 72px; /* Set a fixed height for the SVG */
   transition: transform 0.3s ease;
 }
 
@@ -443,12 +435,24 @@ function goToLogin() {
   animation: slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-.register-form.form-fields-animate .form-item:nth-child(1) { animation-delay: 0.2s; }
-.register-form.form-fields-animate .form-item:nth-child(2) { animation-delay: 0.25s; }
-.register-form.form-fields-animate .form-item:nth-child(3) { animation-delay: 0.3s; }
-.register-form.form-fields-animate .form-item:nth-child(4) { animation-delay: 0.35s; }
-.register-form.form-fields-animate .form-item:nth-child(5) { animation-delay: 0.4s; }
-.register-form.form-fields-animate .form-item:nth-child(6) { animation-delay: 0.45s; }
+.register-form.form-fields-animate .form-item:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.register-form.form-fields-animate .form-item:nth-child(2) {
+  animation-delay: 0.25s;
+}
+.register-form.form-fields-animate .form-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.register-form.form-fields-animate .form-item:nth-child(4) {
+  animation-delay: 0.35s;
+}
+.register-form.form-fields-animate .form-item:nth-child(5) {
+  animation-delay: 0.4s;
+}
+.register-form.form-fields-animate .form-item:nth-child(6) {
+  animation-delay: 0.45s;
+}
 
 @keyframes slideInUp {
   to {
