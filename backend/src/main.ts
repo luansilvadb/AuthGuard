@@ -4,6 +4,8 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  // Enable CORS for frontend dev server
+  app.enableCors({ origin: 'http://localhost:9000' });
 
   // Configuração do Swagger com suporte a JWT (nome padrão 'bearer')
   const config = new DocumentBuilder()

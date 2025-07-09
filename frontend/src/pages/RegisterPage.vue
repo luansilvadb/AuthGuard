@@ -144,7 +144,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, getCurrentInstance } from 'vue';
 import { useRouter } from 'vue-router';
 import {
   SafetyOutlined,
@@ -214,14 +214,26 @@ onMounted(() => {
   }, 100);
 });
 
+const internalInstance = getCurrentInstance();
+
 async function onRegister() {
   try {
     loading.value = true;
-    // Lógica de cadastro aqui
-    await new Promise(resolve => setTimeout(resolve, 1500)); // Simular chamada API
-    void router.push('/login');
+    // Real API call
+    // Use $api from globalProperties
+    const $api = internalInstance?.appContext.config.globalProperties.$api;
+    if (!$api) {
+      throw new Error('API client not available');
+    }
+    await $api.post('/users', {
+
+      name: registerForm.value.name,
+      email: registerForm.value.email,
+      password: registerForm.value.password
+    });    void router.push('/login');
   } catch (error) {
     console.error('Erro no cadastro:', error);
+    // Optionally show error to user
   } finally {
     loading.value = false;
   }

@@ -113,7 +113,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, getCurrentInstance } from 'vue';
 import { useRouter } from 'vue-router';
 import {
   SafetyOutlined,
@@ -159,14 +159,24 @@ onMounted(() => {
   }, 100);
 });
 
+const internalInstance = getCurrentInstance();
+
 async function onLogin() {
   try {
     loading.value = true;
-    // Lógica de autenticação aqui
-    await new Promise(resolve => setTimeout(resolve, 1000)); // Simular chamada API
+    // Real API call
+    const $api = internalInstance?.appContext.config.globalProperties.$api;
+    if (!$api) {
+      throw new Error('API client not available');
+    }
+    await $api.post('/auth/login', {
+      email: loginForm.value.email,
+      password: loginForm.value.password
+    });
     void router.push('/home');
   } catch (error) {
     console.error('Erro no login:', error);
+    // Optionally show error to user
   } finally {
     loading.value = false;
   }
