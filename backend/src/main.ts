@@ -6,7 +6,7 @@ import { AllExceptionsFilter } from './shared/filters/all-exceptions.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalFilters(new QueryFailedFilter());  // Specific filter first
+  app.useGlobalFilters(new QueryFailedFilter()); // Specific filter first
   app.useGlobalFilters(new AllExceptionsFilter()); // Generic filter second
   // Enable CORS for frontend dev server
   app.enableCors({ origin: 'http://localhost:9000' });
@@ -17,13 +17,11 @@ async function bootstrap() {
     .setTitle('AuthGuard API')
     .setDescription('Documentação da API AuthGuard')
     .setVersion('1.0')
-    .addBearerAuth(
-      { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' }
-    )
+    .addBearerAuth({ type: 'http', scheme: 'bearer', bearerFormat: 'JWT' })
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
   await app.listen(process.env.PORT ?? 3000);
 }
-bootstrap();
+void bootstrap();

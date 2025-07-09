@@ -3,15 +3,15 @@ import { User } from './user.entity';
 
 @Entity({ schema: 'global' })
 export class Tenant {
-    @PrimaryGeneratedColumn()
-    id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @Column({ unique: true })
-    slug: string;
+  @Column({ unique: true })
+  slug: string;
 
-    @ManyToOne(() => User, user => user.tenants)
-    owner: User | null;
+  @ManyToOne(() => User, (user) => user.tenants)
+  owner: User | null;
 }

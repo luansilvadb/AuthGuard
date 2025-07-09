@@ -4,14 +4,29 @@ import { getTenantConnection } from './tenant-connection';
 
 @Injectable()
 export class TenantMiddleware implements NestMiddleware {
-    use(req: Request, res: Response, next: NextFunction) {
-        const tenantSlug = req.headers['x-tenant-slug'] || req.query.tenant_slug;
+  async use(req: Request, res: Response, next: NextFunction) {
+    // Make use async
+    const headerTenantSlug = req.headers['x-tenant-slug'];
+    const queryTenantSlug = req.query.tenant_slug;
 
-        if (tenantSlug) {
-            const tenantConnection = getTenantConnection(tenantSlug.toString());
-            (req as any).tenantConnection = tenantConnection;
-        }
+    let tenantSlug: string | undefined;
 
-        next();
+    if (Array.isArray(headerTenantSlug)) {
+      tenantSlug = headerTenantSlug[0];
+    } else if (typeof headerTenantSlug === 'string') {
+      tenantSlug = headerTenantSlug;
+    } else if (Array.isArray(queryTenantSlug)) {
+      // Garante que o elemento do array é uma string antes de atribuir
+      tenantSlug =
+        typeof queryTenantSlug[0] === 'string' ? queryTenantSlug[0] : undefined;
+    } else if (typeof queryTenantSlug === 'string') {
+      tenantSlug = queryTenantSlug;
     }
+
+    if (tenantSlug) {
+      req.tenantConnection = await getTenantConnection(tenantSlug); // Await the promise
+    }
+
+    next();
+  }
 }
