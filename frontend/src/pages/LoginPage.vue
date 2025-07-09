@@ -122,6 +122,8 @@ import {
   LockOutlined
 } from '@ant-design/icons-vue';
 import { Cookies } from 'quasar';
+import { message } from 'ant-design-vue';
+import { AxiosError } from 'axios';
 
 const router = useRouter();
 const formRef = ref();
@@ -182,11 +184,18 @@ async function onLogin() {
         cookieOptions.expires = 7; // 7 days
       }
       Cookies.set('token', access_token, cookieOptions);
+      message.success('Login realizado com sucesso!');
       void router.push('/home');
     } else {
+      message.error('Token não encontrado na resposta.');
       console.error('Token not found in response:', response.data);
     }
-  } catch (error) {
+  } catch (error: unknown) {
+    if (error instanceof AxiosError) {
+      message.error('Erro no login: ' + (error.response?.data?.message || error.message));
+    } else {
+      message.error('Erro desconhecido no login.');
+    }
     console.error('Erro no login:', error);
   } finally {
     loading.value = false;
@@ -440,6 +449,7 @@ function goToRegister() {
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: 0.3s;
 }
 
 .login-button:hover {

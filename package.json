@@ -1,0 +1,17 @@
+{
+  "name": "authguard-monorepo",
+  "version": "1.0.0",
+  "description": "AuthGuard Monorepo for multi-tenant SaaS application",
+  "private": true,
+  "scripts": {
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2"
+  },
+  "lint-staged": {
+    "*.{js,ts,vue,scss,json,md}": "prettier --write",
+    "*.{js,ts,vue}": "eslint --fix"
+  }
+}

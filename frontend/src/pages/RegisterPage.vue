@@ -153,6 +153,8 @@ import {
   MailOutlined,
   LockOutlined
 } from '@ant-design/icons-vue';
+import { message } from 'ant-design-vue';
+import { AxiosError } from 'axios';
 
 const router = useRouter();
 const formRef = ref();
@@ -219,21 +221,30 @@ const internalInstance = getCurrentInstance();
 async function onRegister() {
   try {
     loading.value = true;
-    // Real API call
-    // Use $api from globalProperties
     const $api = internalInstance?.appContext.config.globalProperties.$api;
     if (!$api) {
       throw new Error('API client not available');
     }
     await $api.post('/users', {
-
       name: registerForm.value.name,
       email: registerForm.value.email,
       password: registerForm.value.password
-    });    void router.push('/login');
-  } catch (error) {
-    console.error('Erro no cadastro:', error);
-    // Optionally show error to user
+    });
+    message.success('Cadastro realizado com sucesso! Faça login para continuar.');
+    void router.push('/login');
+  } catch (error: unknown) {
+    let userFriendlyMessage = 'Ocorreu um erro ao tentar criar sua conta.';
+    if (error instanceof AxiosError) {
+      console.error('Full AxiosError response:', error.response); // Log full response for debugging
+      const backendError = error.response?.data;
+      if (backendError?.message) {
+        userFriendlyMessage = backendError.message; // Directly use the message from backend
+      } else {
+        userFriendlyMessage = error.message;
+      }
+    }
+    message.error('Erro no cadastro: ' + userFriendlyMessage);
+    console.error('Erro no cadastro:', error); // Keep for debugging
   } finally {
     loading.value = false;
   }

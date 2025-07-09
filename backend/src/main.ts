@@ -1,9 +1,13 @@
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { QueryFailedFilter } from './shared/filters/query-failed.filter';
+import { AllExceptionsFilter } from './shared/filters/all-exceptions.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.useGlobalFilters(new QueryFailedFilter());  // Specific filter first
+  app.useGlobalFilters(new AllExceptionsFilter()); // Generic filter second
   // Enable CORS for frontend dev server
   app.enableCors({ origin: 'http://localhost:9000' });
   app.setGlobalPrefix('api');
