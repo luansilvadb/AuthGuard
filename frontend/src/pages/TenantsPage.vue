@@ -89,24 +89,21 @@
             <span class="created-badge"><CalendarOutlined /> {{ record.created }}</span>
           </template>
           <template v-else-if="column.key === 'actions'">
-            <a-tooltip title="Editar">
-              <a-button type="text" size="small" @click="openEditModal(record)">
-                <template #icon><EditOutlined /></template>
-              </a-button>
-            </a-tooltip>
+            <a-button type="text" size="small" @click="openEditModal(record)">
+              <template #icon><EditOutlined /></template>
+            </a-button>
             <a-popconfirm
               title="Tem certeza que deseja excluir o tenant?"
               :description="'Excluir ' + record.org + '?'"
               ok-text="Excluir"
               ok-type="danger"
               cancel-text="Cancelar"
+              placement="topLeft"
               @confirm="() => confirmDelete(record)"
             >
-              <a-tooltip title="Excluir">
-                <a-button type="text" size="small" danger>
-                  <template #icon><DeleteOutlined /></template>
-                </a-button>
-              </a-tooltip>
+              <a-button type="text" size="small" danger>
+                <template #icon><DeleteOutlined /></template>
+              </a-button>
             </a-popconfirm>
           </template>
         </template>

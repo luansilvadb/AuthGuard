@@ -16,10 +16,10 @@ const routes: RouteRecordRaw[] = [
     children: [
       { path: 'dashboard', component: () => import('pages/DashboardPage.vue') },
       { path: 'tenants', component: () => import('pages/TenantsPage.vue') }, // UI/UX customizada
-      { path: 'users', component: () => import('pages/IndexPage.vue') }, // Placeholder, update later
-      { path: 'security', component: () => import('pages/IndexPage.vue') }, // Placeholder, update later
-      { path: 'reports', component: () => import('pages/IndexPage.vue') }, // Placeholder, update later
-      { path: 'settings', component: () => import('pages/IndexPage.vue') }, // Placeholder, update later
+      { path: 'users', component: () => import('pages/UserPage.vue') },
+      { path: 'security', component: () => import('pages/SecurityPage.vue') },
+      { path: 'reports', component: () => import('pages/ReportsPage.vue') },
+      { path: 'settings', component: () => import('pages/SettingsPage.vue') },
     ],
     beforeEnter: (to, from, next) => {
       const token = Cookies.get('token');

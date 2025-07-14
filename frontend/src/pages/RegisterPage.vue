@@ -427,14 +427,12 @@ function goToLogin() {
   text-align: center;
   margin-bottom: 32px;
   opacity: 0;
-  transform: translateY(15px);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   transition-delay: 0.1s;
 }
 
 .form-header.header-animate {
   opacity: 1;
-  transform: translateY(0);
 }
 
 .form-title {
@@ -455,35 +453,7 @@ function goToLogin() {
 }
 
 .register-form.form-fields-animate .form-item {
-  opacity: 0;
-  transform: translateY(15px);
-  animation: slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.register-form.form-fields-animate .form-item:nth-child(1) {
-  animation-delay: 0.2s;
-}
-.register-form.form-fields-animate .form-item:nth-child(2) {
-  animation-delay: 0.25s;
-}
-.register-form.form-fields-animate .form-item:nth-child(3) {
-  animation-delay: 0.3s;
-}
-.register-form.form-fields-animate .form-item:nth-child(4) {
-  animation-delay: 0.35s;
-}
-.register-form.form-fields-animate .form-item:nth-child(5) {
-  animation-delay: 0.4s;
-}
-.register-form.form-fields-animate .form-item:nth-child(6) {
-  animation-delay: 0.45s;
-}
-
-@keyframes slideInUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  opacity: 1;
 }
 
 .input-field {
@@ -493,7 +463,6 @@ function goToLogin() {
 
 .input-field:hover,
 .input-field:focus {
-  transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -531,7 +500,6 @@ function goToLogin() {
 .register-button:hover:not(:disabled) {
   background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
   box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
-  transform: translateY(-2px);
 }
 
 .register-button:disabled {
@@ -566,20 +534,17 @@ function goToLogin() {
   font-weight: 600;
   color: #6b7280;
   opacity: 0;
-  transform: translateY(15px);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   transition-delay: 0.55s;
 }
 
 .login-button.login-btn-animate {
   opacity: 1;
-  transform: translateY(0);
 }
 
 .login-button:hover {
   border-color: #3b82f6;
   color: #3b82f6;
-  transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
 }
 

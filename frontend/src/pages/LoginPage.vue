@@ -380,14 +380,12 @@ function goToRegister() {
   text-align: center;
   margin-bottom: 32px;
   opacity: 0;
-  transform: translateY(15px);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   transition-delay: 0.1s;
 }
 
 .form-header.header-animate {
   opacity: 1;
-  transform: translateY(0);
 }
 
 .form-title {
@@ -408,9 +406,7 @@ function goToRegister() {
 }
 
 .login-form.form-fields-animate .form-item {
-  opacity: 0;
-  transform: translateY(15px);
-  animation: slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 1;
 }
 
 .login-form.form-fields-animate .form-item:nth-child(1) {
@@ -440,7 +436,6 @@ function goToRegister() {
 
 .input-field:hover,
 .input-field:focus {
-  transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
@@ -481,7 +476,6 @@ function goToRegister() {
 .login-button:hover {
   background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
   box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
-  transform: translateY(-2px);
 }
 
 .form-divider {

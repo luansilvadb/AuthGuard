@@ -71,11 +71,42 @@
           </div>
         </div>
         <div class="header-right">
-          <a-badge :count="3" class="notification-badge">
-            <a-button type="text" class="header-action-btn">
-              <BellOutlined />
-            </a-button>
-          </a-badge>
+          <a-dropdown
+            placement="bottomRight"
+            trigger="click"
+            :overlay-class-name="'notification-dropdown'"
+            @visibleChange="handleDropdownVisibleChange"
+          >
+            <template #overlay>
+              <div class="notification-dropdown-enterprise">
+                <div class="notification-header">Notificações</div>
+                <div v-if="notifications.length > 0" class="notification-list">
+                  <div
+                    v-for="(item, idx) in notifications"
+                    :key="idx"
+                    class="notification-item-enterprise"
+                  >
+                    <div class="notification-title-row">
+                      <span class="notification-dot" />
+                      <span class="notification-title">{{ item.title }}</span>
+                    </div>
+                    <div class="notification-desc">{{ item.description }}</div>
+                    <div class="notification-time">{{ item.datetime }}</div>
+                    <div v-if="idx !== notifications.length - 1" class="notification-divider" />
+                  </div>
+                </div>
+                <div v-else class="notification-empty">Nenhuma notificação</div>
+                <div class="notification-footer">
+                  <a-button type="link" class="view-all-btn">Ver todas</a-button>
+                </div>
+              </div>
+            </template>
+            <a-badge :count="unreadCount" class="notification-badge">
+              <a-button type="text" class="header-action-btn">
+                <BellOutlined />
+              </a-button>
+            </a-badge>
+          </a-dropdown>
           <a-dropdown placement="bottomRight" trigger="click">
             <a-button type="text" class="header-user-profile">
               <a-avatar size="small" class="user-avatar">
@@ -115,7 +146,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, h } from 'vue';
+import { ref, computed, h, watch } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { Cookies } from 'quasar';
 import {
@@ -137,7 +168,43 @@ const router = useRouter();
 const route = useRoute();
 
 const collapsed = ref(false);
-const selectedKeys = ref<string[]>(['/dashboard']);
+const selectedKeys = ref<string[]>([route.path]);
+
+watch(() => route.path, (newPath) => {
+  selectedKeys.value = [newPath];
+});
+
+interface Notification {
+  title: string;
+  description: string;
+  datetime: string;
+}
+
+const notifications = ref<Notification[]>([
+  {
+    title: 'Novo usuário cadastrado',
+    description: 'João Silva foi adicionado ao sistema.',
+    datetime: 'Hoje, 09:12',
+  },
+  {
+    title: 'Tenant ativado',
+    description: 'TechStart Solutions foi ativado.',
+    datetime: 'Ontem, 18:45',
+  },
+  {
+    title: 'Permissão alterada',
+    description: 'Permissão de Administrador concedida a Maria.',
+    datetime: 'Ontem, 14:22',
+  },
+]);
+
+const unreadCount = ref<number>(notifications.value.length);
+
+const handleDropdownVisibleChange = (visible: boolean) => {
+  if (visible) {
+    unreadCount.value = 0;
+  }
+};
 
 const routeNames: Record<string, string> = {
   '/dashboard': 'Dashboard',
@@ -591,18 +658,25 @@ const handleLogout = () => {
 }
 
 .header-action-btn {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   border-radius: 8px;
   color: $auth-text-light;
-  font-size: 16px;
+  font-size: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  transition: background 0.18s, color 0.18s;
   
   &:hover {
-    background: $auth-hover-dark;
+    background: transparent !important;
     color: $secondary-blue;
+    border-color: transparent;
   }
 }
 
@@ -619,14 +693,13 @@ const handleLogout = () => {
   transition: background 0.18s, color 0.18s;
   
   &:hover {
-    background: #f5f5f5;
+    background: transparent !important;
     border-color: transparent;
     color: $auth-text-light;
-    
+    box-shadow: none;
     .header-username {
       color: #1677ff;
     }
-    /* Avatar, papel e seta permanecem neutros */
   }
 }
 
@@ -690,6 +763,139 @@ const handleLogout = () => {
   background: $neutral-light;
   min-height: calc(100vh - 72px);
   color: $auth-text-dark;
+}
+
+.notification-dropdown {
+  min-width: 320px;
+  max-width: 360px;
+  padding: 0;
+  .notification-list {
+    max-height: 320px;
+    overflow-y: auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(30, 64, 175, 0.10);
+    .notification-item {
+      padding: 12px 18px 10px 18px;
+      border-bottom: 1px solid #f0f0f0;
+      &:last-child {
+        border-bottom: none;
+      }
+      .notification-title {
+        font-weight: 600;
+        color: #23272a;
+        font-size: 15px;
+        margin-bottom: 2px;
+      }
+      .notification-desc {
+        color: #6b7280;
+        font-size: 13px;
+        margin-bottom: 2px;
+      }
+      .notification-time {
+        color: #a1a1aa;
+        font-size: 12px;
+        text-align: right;
+      }
+    }
+  }
+  .notification-empty {
+    padding: 32px 0;
+    text-align: center;
+    color: #a1a1aa;
+    font-size: 15px;
+  }
+}
+
+/* Adicionar estilos enterprise para o dropdown de notificações */
+.notification-dropdown-enterprise {
+  min-width: 340px;
+  max-width: 380px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(30, 64, 175, 0.12);
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.notification-header {
+  font-weight: 700;
+  font-size: 17px;
+  color: #1e293b;
+  padding: 18px 24px 10px 24px;
+  border-bottom: 1px solid #f0f0f0;
+  background: #fff;
+}
+.notification-list {
+  max-height: 320px;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+}
+.notification-item-enterprise {
+  padding: 16px 24px 10px 24px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  position: relative;
+}
+.notification-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.notification-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #1677ff;
+  display: inline-block;
+}
+.notification-title {
+  font-weight: 600;
+  color: #23272a;
+  font-size: 15px;
+}
+.notification-desc {
+  color: #6b7280;
+  font-size: 13px;
+  margin-bottom: 2px;
+}
+.notification-time {
+  color: #a1a1aa;
+  font-size: 12px;
+  text-align: right;
+}
+.notification-divider {
+  height: 1px;
+  background: #f0f0f0;
+  margin: 12px 0 0 0;
+  width: 100%;
+}
+.notification-item-enterprise:last-child .notification-divider {
+  display: none;
+}
+.notification-empty {
+  padding: 40px 0;
+  text-align: center;
+  color: #a1a1aa;
+  font-size: 15px;
+}
+.notification-footer {
+  border-top: 1px solid #f0f0f0;
+  background: #fafbfc;
+  padding: 10px 0 10px 0;
+  text-align: center;
+}
+.view-all-btn {
+  color: #1677ff;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 0 16px;
 }
 
 @media (max-width: 768px) {
