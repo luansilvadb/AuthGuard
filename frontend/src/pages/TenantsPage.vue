@@ -1,6 +1,7 @@
 <template>
   <div class="tenants-container">
-    <div class="tenants-header tenants-header--right">
+    <div class="tenants-header tenants-header--top-flex">
+      <h2 class="tenants-table-title">Tenants Cadastrados ({{ tenants.length }})</h2>
       <a-button type="primary" class="new-tenant-btn" @click="openCreateModal">
         + Novo Tenant
       </a-button>
@@ -46,7 +47,6 @@
     </a-modal>
     <div class="tenants-table-card">
       <div class="tenants-table-header">
-        <h2 class="tenants-table-title">Tenants Cadastrados ({{ tenants.length }})</h2>
         <a-input-search
           v-model:value="search"
           placeholder="Buscar tenants..."
@@ -254,6 +254,17 @@ function confirmDelete(record: Tenant) {
   justify-content: flex-end;
   margin-bottom: 32px;
   gap: 24px;
+}
+.tenants-header--top,
+.tenants-header--top-flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  gap: 24px;
+  padding: 0;
+  background: none;
+  box-shadow: none;
 }
 .tenants-title {
   font-size: 2rem;
