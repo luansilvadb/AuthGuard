@@ -2,142 +2,104 @@
   <a-layout style="min-height: 100vh">
     <a-layout-sider
       v-model:collapsed="collapsed"
-      :width="250"
+      :width="280"
       :collapsed-width="80"
       class="auth-sidebar"
     >
-      <!-- Header com Logo e Versão -->
-      <div class="sidebar-header">
-        <div class="logo-section">
-          <div class="logo-icon">
-            <img src="../assets/logo.svg" alt="AuthGuard Logo" class="auth-logo-img" />
-          </div>
-          <div v-if="!collapsed" class="logo-info">
-            <h1 class="app-name">AuthGuard</h1>
-            <div class="version-language-row">
-              <span class="version">v2.2.10</span>
-              <template v-if="isRefreshing">
-                <loading-outlined class="refresh-icon" />
-              </template>
-              <template v-else>
-                <sync-outlined class="refresh-icon" @click="handleRefreshClick" />
-              </template>
-              <a-select v-model:value="selectedLanguage" size="small" class="lang-select">
-                <a-select-option value="PT">PT</a-select-option>
-                <a-select-option value="EN">EN</a-select-option>
-              </a-select>
-            </div>
-          </div>
+      <div class="sidebar-logo-row" :class="{ collapsed }">
+        <div v-if="!collapsed" class="logo-icon">
+          <SafetyOutlined class="logo-svg" />
         </div>
+        <span v-if="!collapsed" class="app-name">AuthGuard</span>
+        <a-button
+          type="text"
+          :icon="collapsed ? h(MenuUnfoldOutlined) : h(MenuFoldOutlined)"
+          @click="toggleCollapsed"
+          class="sidebar-collapse-btn"
+        />
       </div>
-
-      <!-- Menu Unificado -->
       <a-menu
         v-model:selectedKeys="selectedKeys"
         mode="inline"
         class="auth-menu-unified"
         @click="handleMenuClick"
       >
-        <a-menu-group title="Principal">
-          <a-menu-item key="/home">
-            <template #icon>
-              <home-outlined />
-            </template>
-            <span>Dashboard</span>
-          </a-menu-item>
-
-          <a-menu-item key="/actions">
-            <template #icon>
-              <play-circle-outlined />
-            </template>
-            <span>Actions</span>
-          </a-menu-item>
-
-          <a-menu-item key="/monitor">
-            <template #icon>
-              <bar-chart-outlined />
-            </template>
-            <span>Monitor</span>
-          </a-menu-item>
-
-          <a-menu-item key="/tenants">
-            <template #icon>
-              <global-outlined />
-            </template>
-            <span>Domains</span>
-          </a-menu-item>
-
-          <a-menu-item key="/settings">
-            <template #icon>
-              <setting-outlined />
-            </template>
-            <span>Settings</span>
-          </a-menu-item>
-        </a-menu-group>
-
-        <a-menu-group title="Recursos">
-          <a-menu-item key="docs">
-            <template #icon>
-              <book-outlined />
-            </template>
-            <span>Documentation</span>
-          </a-menu-item>
-
-          <a-menu-item key="discord">
-            <template #icon>
-              <message-outlined />
-            </template>
-            <span>Discord</span>
-          </a-menu-item>
-
-          <a-menu-item key="feedback">
-            <template #icon>
-              <comment-outlined />
-            </template>
-            <span>Feedback</span>
-          </a-menu-item>
-
-          <a-menu-item key="changelog">
-            <template #icon>
-              <star-outlined />
-            </template>
-            <span>Changelog</span>
-          </a-menu-item>
-        </a-menu-group>
-
-        <!-- Removida a seção "Ações" -->
+        <a-menu-item key="/dashboard">
+          <template #icon>
+            <DashboardOutlined />
+          </template>
+          <span>Dashboard</span>
+        </a-menu-item>
+        <a-menu-item key="/tenants">
+          <template #icon>
+            <TeamOutlined />
+          </template>
+          <span>Tenants</span>
+        </a-menu-item>
+        <a-menu-item key="/users">
+          <template #icon>
+            <UserOutlined />
+          </template>
+          <span>Usuários</span>
+        </a-menu-item>
+        <a-menu-item key="/security">
+          <template #icon>
+            <SafetyCertificateOutlined />
+          </template>
+          <span>Segurança</span>
+        </a-menu-item>
+        <a-menu-item key="/reports">
+          <template #icon>
+            <BarChartOutlined />
+          </template>
+          <span>Relatórios</span>
+        </a-menu-item>
+        <a-menu-item key="/settings">
+          <template #icon>
+            <SettingOutlined />
+          </template>
+          <span>Configurações</span>
+        </a-menu-item>
       </a-menu>
     </a-layout-sider>
-
     <a-layout class="main-layout">
       <a-layout-header class="auth-header">
         <div class="header-left">
-          <a-button
-            type="text"
-            :icon="collapsed ? h(MenuUnfoldOutlined) : h(MenuFoldOutlined)"
-            @click="toggleCollapsed"
-            class="collapse-toggle"
-          />
-          <h1 class="page-title">{{ currentRouteName }}</h1>
+          <div class="breadcrumb-section">
+            <h1 class="page-title">{{ currentRouteName }}</h1>
+            <span class="page-subtitle">{{ currentRouteDescription }}</span>
+          </div>
         </div>
-
         <div class="header-right">
-          <a-dropdown placement="bottomRight">
-            <a-button type="text" class="user-menu">
-              <a-avatar :size="32" :icon="h(UserOutlined)" class="user-avatar" />
-              <span class="username">Admin</span>
-              <down-outlined />
+          <a-badge :count="3" class="notification-badge">
+            <a-button type="text" class="header-action-btn">
+              <BellOutlined />
             </a-button>
-
+          </a-badge>
+          <a-dropdown placement="bottomRight" trigger="click">
+            <a-button type="text" class="header-user-profile">
+              <a-avatar size="small" class="user-avatar">
+                <UserOutlined />
+              </a-avatar>
+              <div class="user-info">
+                <span class="header-username">Admin</span>
+                <span class="user-role">Administrador</span>
+              </div>
+              <DownOutlined class="header-dropdown-icon" />
+            </a-button>
             <template #overlay>
               <a-menu class="user-dropdown">
                 <a-menu-item key="profile">
-                  <user-outlined />
-                  Perfil
+                  <UserOutlined />
+                  Meu Perfil
+                </a-menu-item>
+                <a-menu-item key="preferences">
+                  <SettingOutlined />
+                  Preferências
                 </a-menu-item>
                 <a-menu-divider />
                 <a-menu-item key="logout" @click="handleLogout">
-                  <logout-outlined />
+                  <LogoutOutlined />
                   Sair
                 </a-menu-item>
               </a-menu>
@@ -145,7 +107,6 @@
           </a-dropdown>
         </div>
       </a-layout-header>
-
       <a-layout-content class="auth-content">
         <router-view />
       </a-layout-content>
@@ -157,58 +118,56 @@
 import { ref, computed, h } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { Cookies } from 'quasar';
-import { message } from 'ant-design-vue'; // Importar o componente message
 import {
-  HomeOutlined,
-  PlayCircleOutlined,
+  SafetyOutlined,
+  DashboardOutlined,
+  TeamOutlined,
+  UserOutlined,
+  SafetyCertificateOutlined,
   BarChartOutlined,
-  GlobalOutlined,
   SettingOutlined,
-  BookOutlined,
-  MessageOutlined,
-  CommentOutlined,
-  StarOutlined,
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-  UserOutlined,
   LogoutOutlined,
   DownOutlined,
-  SyncOutlined,
-  LoadingOutlined, // Adicionado LoadingOutlined
+  BellOutlined
 } from '@ant-design/icons-vue';
 
 const router = useRouter();
 const route = useRoute();
 
 const collapsed = ref(false);
-const selectedKeys = ref<string[]>([]);
-const selectedLanguage = ref('EN'); // Alterado para EN conforme a imagem
-// const darkMode = ref(true); // Removido
-const isRefreshing = ref(false); // Nova ref para controlar a animação de refresh
+const selectedKeys = ref<string[]>(['/dashboard']);
 
 const routeNames: Record<string, string> = {
-  '/home': 'Dashboard',
-  '/actions': 'Actions',
-  '/monitor': 'Monitor',
-  '/tenants': 'Domains',
-  '/settings': 'Settings',
+  '/dashboard': 'Dashboard',
+  '/tenants': 'Tenants',
+  '/users': 'Usuários',
+  '/security': 'Segurança',
+  '/reports': 'Relatórios',
+  '/settings': 'Configurações',
+};
+
+const routeDescriptions: Record<string, string> = {
+  '/dashboard': 'Visão geral e métricas do sistema',
+  '/tenants': 'Gerenciamento de organizações',
+  '/users': 'Controle de usuários e permissões',
+  '/security': 'Políticas de segurança e auditoria',
+  '/reports': 'Relatórios e análises',
+  '/settings': 'Configurações do sistema',
 };
 
 const currentRouteName = computed(() => {
   return routeNames[route.path] || 'Dashboard';
 });
 
-const handleMenuClick = ({ key }: { key: string }) => {
-  selectedKeys.value = [key]; // Sempre seleciona o item clicado
+const currentRouteDescription = computed(() => {
+  return routeDescriptions[route.path] || 'Visão geral do sistema';
+});
 
-  // Removida a lógica de toggle Dark Mode e Logout da sidebar, pois os botões foram removidos
-  if (key.startsWith('/')) {
-    // Não faz nada para as rotas do menu principal por enquanto, apenas seleciona
-    console.log(`Navegação desativada para: ${key}`);
-  } else {
-    // Para outros itens que não são rotas (docs, discord, etc.), também não navega
-    console.log(`Item secundário clicado: ${key}`);
-  }
+const handleMenuClick = ({ key }: { key: string }) => {
+  selectedKeys.value = [key];
+  void router.push(key);
 };
 
 const toggleCollapsed = () => {
@@ -219,144 +178,204 @@ const handleLogout = () => {
   Cookies.remove('token');
   void router.push('/login');
 };
-
-const handleRefreshClick = () => {
-  isRefreshing.value = true;
-  message.success('Atualizado!'); // Exibe a mensagem de sucesso
-
-  // Simula um tempo de "refresh" e desativa a animação
-  setTimeout(() => {
-    isRefreshing.value = false;
-  }, 1000); // Animação de 1 segundo
-};
 </script>
 
 <style scoped lang="scss">
 @import '../css/app-colors.scss';
 
-@mixin auth-menu-item-base {
-  height: 44px;
-  line-height: 44px;
-  padding: 0 8px 0 24px;
-  border-radius: 4px;
-  color: $auth-text-light;
-  background: transparent;
-  font-size: 16px;
-}
-
-@mixin auth-hover-effect {
-  &:hover {
-    background: $auth-hover-dark;
-    color: $secondary-blue;
-  }
-}
-
-@mixin auth-dropdown-base {
-  background: $auth-background-dark;
-  border: 1px solid $auth-border-dark;
-}
-
-@mixin auth-dropdown-item-hover {
-  &:hover {
-    background: $auth-hover-dark;
-    color: $auth-text-dark;
-  }
-}
-
 .auth-sidebar {
-  background: $auth-background-dark;
-  border-right: 1px solid $auth-border-dark;
+  background: $neutral-light;
+  border-right: 1px solid #e3e5e8;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-}
-
-.sidebar-header {
-  height: 64px;
-  display: flex;
-  align-items: center;
-  padding: 0 16px 0 24px;
-  border-bottom: 1px solid $auth-border-dark;
-}
-
-.logo-section {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 0;
-}
-
-.logo-icon {
-  width: 40px;
-  height: 40px;
-  background: transparent;
-
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: $auth-text-dark;
-  font-size: 24px;
-  flex-shrink: 0;
-  position: relative;
-  top: -4px;
-}
-.auth-logo-img {
-  width: 100%;
-  height: 100%;
-}
-
-.logo-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 0;
-}
-
-.app-name {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 600;
-  color: $secondary-blue;
-  line-height: 1;
-  white-space: nowrap;
+  .sidebar-logo-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 72px;
+    padding: 0 12px 0 12px;
+    gap: 12px;
+    border-bottom: 1px solid #e3e5e8;
+    background: linear-gradient(135deg, $neutral-light 0%, #e3e5e8 100%);
+    // Centralizar botão quando collapsed
+    &.collapsed {
+      justify-content: center;
+      .sidebar-collapse-btn {
+        margin-left: 0;
+      }
+    }
+  }
+  .sidebar-collapse-btn {
+    margin-left: auto;
+    color: $auth-text-group-title;
+    font-size: 18px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    width: 44px;
+    &:hover {
+      color: $secondary-blue;
+      background: #e6e8ec;
+    }
+  }
+  .logo-icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, $primary-blue 0%, $secondary-blue 100%);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    flex-shrink: 0;
+    box-shadow: 0 1px 4px rgba(88, 101, 242, 0.10);
+  }
+  .logo-svg {
+    font-size: 20px;
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    transform: translateZ(0);
+  }
+  .app-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #23272a;
+    line-height: 1.2;
+    white-space: nowrap;
+    letter-spacing: -0.5px;
+  }
+  .ant-menu {
+    background: transparent;
+    border: none;
+    padding-top: 0;
+  }
+  :deep(.ant-menu-item) {
+    font-weight: 500;
+    font-size: 15px;
+    color: #23272a;
+    border-radius: 8px;
+    margin: 0 8px 4px 8px;
+    transition: background 0.18s, color 0.18s;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-left: 24px;
+    &:hover {
+      background: rgba(30,64,175,0.06);
+      color: $secondary-blue;
+      .anticon {
+        color: $secondary-blue;
+      }
+    }
+  }
+  :deep(.ant-menu-item-selected) {
+    background: #e6eeff !important;
+    color: #1e40af !important;
+    font-weight: 700;
+    /* Remover box-shadow para visual mais limpo */
+    .anticon {
+      color: #1e40af !important;
+    }
+  }
+  :deep(.ant-menu-item .anticon) {
+    font-size: 18px;
+    color: #6b7280;
+    transition: color 0.18s;
+  }
+  :deep(.ant-menu-item-selected .anticon),
+  :deep(.ant-menu-item:hover .anticon) {
+    color: $secondary-blue !important;
+  }
+  :deep(.ant-menu-item:not(.ant-menu-item-selected):hover) {
+    background: rgba(30,64,175,0.06);
+    color: $secondary-blue;
+    .anticon {
+      color: $secondary-blue;
+    }
+  }
 }
 
 .version-language-row {
   display: flex;
   align-items: center;
   gap: 8px;
-  margin-top: -2px;
+  margin-top: 2px;
 }
 
-.version {
-  font-size: 14px;
-  font-family: 'Inter Variable', sans-serif;
-  color: $auth-version-color;
-  margin: 0;
-  line-height: 1;
-  white-space: nowrap;
-}
-
-.refresh-icon {
+.version-text {
   font-size: 12px;
-  color: $auth-text-light;
-  cursor: pointer;
+  color: $auth-version-color;
+  font-weight: 500;
 }
 
-.lang-select {
-  width: 60px;
-
+.language-select {
+  min-width: 48px;
+  max-width: 56px;
+  width: 56px;
+  text-align: center;
+  
   :deep(.ant-select-selector) {
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    color: $auth-text-dark;
+    
+    border: none !important;
+    color: $auth-version-color !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    padding: 0 16px 0 8px !important;
+    min-height: 24px !important;
+    height: 24px !important;
+    box-shadow: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px !important;
+    text-align: center;
+    white-space: nowrap;
+    overflow: visible !important;
+    text-overflow: unset !important;
   }
-
+  :deep(.ant-select-selection-item) {
+    white-space: nowrap !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    text-align: center !important;
+    padding: 0 !important;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
   :deep(.ant-select-arrow) {
-    color: $auth-text-light;
+    color: $auth-version-color !important;
+    right: 0 !important;
+    font-size: 10px !important;
+  }
+  :deep(.ant-select-dropdown) {
+    min-width: 56px !important;
+    background: $auth-background-dark !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(59,130,246,0.12) !important;
+    padding: 4px 0 !important;
+    left: 0 !important;
+  }
+  :deep(.ant-select-item-option) {
+    font-size: 12px !important;
+    color: $auth-version-color !important;
+    padding: 4px 12px !important;
+    border-radius: 4px !important;
+    text-align: center;
+    white-space: nowrap;
+  }
+  :deep(.ant-select-item-option-active),
+  :deep(.ant-select-item-option-selected) {
+    background: $auth-hover-dark !important;
+    color: $secondary-blue !important;
   }
 }
 
@@ -364,141 +383,329 @@ const handleRefreshClick = () => {
   background: transparent;
   border: none;
   padding: 0;
-  flex: 1;
-  overflow-y: auto;
 
   :deep(.ant-menu-item) {
-    @include auth-menu-item-base;
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin: 0;
+    width: 100%;
+    padding-left: 24px;
+    padding-right: 16px;
+    box-sizing: border-box;
+    color: $auth-text-dark;
+    background: transparent;
+    border-radius: 8px;
+    transition: background 0.18s, color 0.18s;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 0;
+      background: $secondary-blue;
+      border-radius: 0 2px 2px 0;
+      transition: height 0.2s ease;
+    }
   }
 
   :deep(.ant-menu-item:hover) {
-    background: $auth-hover-dark !important;
-    color: $auth-text-dark !important;
+    color: $secondary-blue;
+    &::before {
+      height: 20px;
+    }
   }
 
   :deep(.ant-menu-item-selected) {
-    background: $auth-selected-dark !important;
-    color: $secondary-blue;
+    
+    color: $secondary-blue !important;
+    margin: 0;
+    width: 100%;
+    transition: background 0.18s cubic-bezier(0.4, 0, 0.2, 1), color 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    &::before {
+      height: 24px;
+    }
   }
 
-  :deep(.ant-menu-item-selected:hover) {
-    background: $auth-selected-dark !important;
+  :deep(.ant-menu-item-selected .anticon) {
+    color: $secondary-blue !important;
+  }
+
+  :deep(.ant-menu-item-selected .menu-item-subtext) {
     color: $secondary-blue !important;
   }
 
   :deep(.ant-menu-item .anticon) {
     font-size: 16px;
     margin-right: 12px;
-  }
-
-  :deep(.ant-menu-item-group-title) {
     color: $auth-text-group-title;
-    font-size: 12px;
-    padding-left: 16px;
-    margin-top: 16px;
-    margin-bottom: 8px;
+    transition: color 0.2s ease;
+  }
+
+  .menu-item-content {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+    flex: 1;
+  }
+
+  .menu-item-title {
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  .menu-item-subtext {
+    font-size: 11px;
+    color: $auth-text-group-title;
+    font-weight: 400;
+    margin-top: 1px;
   }
 }
 
-.auth-sidebar.ant-layout-sider-collapsed
-  .auth-menu-unified
-  :deep(.ant-menu-item .ant-menu-title-content) {
-  display: none;
+.sidebar-footer {
+  border-top: 1px solid $auth-border-dark;
+  padding: 16px 0;
+  background: linear-gradient(180deg, transparent 0%, $neutral-dark 100%);
 }
 
-// Removido .dark-mode-switch e .logout-item
+.footer-section {
+  padding: 0 12px;
+}
+
+.footer-menu {
+  background: transparent;
+  border: none;
+  
+  :deep(.ant-menu-item) {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 12px;
+    border-radius: 6px;
+    margin: 2px 0;
+    color: $auth-text-light;
+    font-size: 13px;
+    
+    &:hover {
+      background: $auth-hover-dark;
+      color: $secondary-blue;
+    }
+  }
+  
+  :deep(.ant-menu-item .anticon) {
+    font-size: 14px;
+    margin-right: 10px;
+  }
+}
+
 .main-layout {
-  background: $auth-background-dark;
+  background: $neutral-light;
 }
 
 .auth-header {
-  background: $auth-background-dark;
-  border-bottom: 1px solid $auth-border-dark;
+  background: $neutral-light;
+  border-bottom: 1px solid #e3e5e8;
   padding: 0 24px;
-  height: 64px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-shadow: 0 1px 3px rgba(88, 101, 242, 0.04);
 }
 
 .header-left {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
+  height: 72px;
 }
 
 .collapse-toggle {
   color: $auth-text-light;
   font-size: 16px;
-  width: 32px;
-  height: 32px;
-  border-radius: 4px;
-  @include auth-hover-effect;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    background: $auth-hover-dark;
+    color: $secondary-blue;
+  }
+}
+
+.breadcrumb-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  height: 100%;
 }
 
 .page-title {
   margin: 0;
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 700;
   color: $auth-text-dark;
+  line-height: 1.2;
+  display: flex;
+  align-items: center;
+  height: 32px;
+}
+
+.page-subtitle {
+  font-size: 13px;
+  color: $auth-text-group-title;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  height: 20px;
 }
 
 .header-right {
   display: flex;
   align-items: center;
+  gap: 16px;
 }
 
-.user-menu {
+.notification-badge {
+  :deep(.ant-badge-count) {
+    background: #ff4d4f;
+    color: #fff;
+    box-shadow: none;
+    border: none;
+    font-size: 12px;
+    font-weight: 400;
+    min-width: 18px;
+    height: 18px;
+    line-height: 18px;
+    padding: 0 5px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+  }
+}
+
+.header-action-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  color: $auth-text-light;
+  font-size: 16px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 12px;
+  justify-content: center;
+  
+  &:hover {
+    background: $auth-hover-dark;
+    color: $secondary-blue;
+  }
+}
+
+.header-user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
   height: 48px;
-  border-radius: 4px;
+  border-radius: 8px;
   color: $auth-text-light;
-  @include auth-hover-effect;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: background 0.18s, color 0.18s;
+  
+  &:hover {
+    background: #f5f5f5;
+    border-color: transparent;
+    color: $auth-text-light;
+    
+    .header-username {
+      color: #1677ff;
+    }
+    /* Avatar, papel e seta permanecem neutros */
+  }
 }
 
 .user-avatar {
-  color: $auth-text-dark;
+  background: $secondary-blue;
+  color: white;
+  font-size: 14px;
 }
 
-.username {
-  font-weight: 500;
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+}
+
+.header-username {
+  font-weight: 600;
   color: $auth-text-dark;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.user-role {
+  font-size: 11px;
+  color: $auth-text-group-title;
+  font-weight: 400;
+}
+
+.header-dropdown-icon {
+  font-size: 12px;
+  color: $auth-text-light;
+  margin-left: 4px;
 }
 
 .user-dropdown {
   :deep(.ant-menu) {
-    @include auth-dropdown-base;
+    min-width: 56px !important;
+    background: $auth-background-dark !important;
+    border-radius: 8px !important;
+    box-shadow: 0 2px 8px rgba(59,130,246,0.12) !important;
+    padding: 4px 0 !important;
+    left: 0 !important;
   }
 
   :deep(.ant-menu-item) {
     color: $auth-text-light;
+    padding: 8px 16px;
+    height: 40px;
+    line-height: 24px;
   }
 
   :deep(.ant-menu-item:hover) {
-    @include auth-dropdown-item-hover;
+    background: $auth-hover-dark !important;
+    color: $secondary-blue !important;
   }
 }
 
 .auth-content {
   padding: 24px;
-  background: $auth-background-dark;
-  min-height: calc(100vh - 64px);
+  background: $neutral-light;
+  min-height: calc(100vh - 72px);
   color: $auth-text-dark;
 }
 
 @media (max-width: 768px) {
   .auth-header {
-    padding: 0 16px 0 24px;
+    padding: 0 16px;
   }
 
   .auth-content {
     padding: 16px;
   }
 
-  .username {
+  .user-info {
+    display: none;
+  }
+  
+  .page-subtitle {
     display: none;
   }
 }
@@ -512,6 +719,10 @@ const handleRefreshClick = () => {
 
   .auth-content {
     padding: 12px;
+  }
+  
+  .header-right {
+    gap: 8px;
   }
 }
 </style>

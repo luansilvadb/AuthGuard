@@ -1,24 +1,25 @@
 // AuthGuard Design System Colors
-$primary-blue: #1e40af;
-$secondary-blue: #3b82f6;
-$dark-blue: #1e3a8a;
+$primary-blue: #4752c4;
+$secondary-blue: #5865f2;
+$dark-blue: #23272a;
 $darker-blue: #1e293b;
 
 $green-register: #059669;
 $dark-green-register: #047857;
 $darker-green-register: #064e3b;
 
-$neutral-light: #f8fafc;
-$neutral-dark: #1f2937;
-$neutral-medium: #6b7280;
+$neutral-light: #f6f7fb;
+$neutral-dark: #23272a;
+$neutral-medium: #b5bac1;
 
 // Auth Theme Specific Colors
 $auth-background-dark: #18181b; // Cor da sidebar sem passar o mouse
 $auth-border-dark: #333333;
-$auth-text-light: #cccccc;
-$auth-text-dark: #ffffff;
-$auth-hover-dark: #27272a; // Cor da sidebar passando o mouse
-$auth-selected-dark: #09090b; // Cor da sidebar ao clicar/selecionar
+$auth-text-light: #b5bac1;
+$auth-text-dark: #23272a;
+$auth-hover-dark: #e3e5e8; // Cor da sidebar passando o mouse (light)
+$auth-selected-dark: #e6e8ec; // Cor da sidebar ao clicar/selecionar (light)
+$auth-selected-blue: #5865f2; // New color for selected menu item
 $auth-red-error: #cc0000;
-$auth-text-group-title: #888888;
-$auth-version-color: #a1a1aa;
+$auth-text-group-title: #6b7280;
+$auth-version-color: #5865f2;

@@ -5,7 +5,9 @@
       <div class="content-wrapper" :class="{ 'content-animate': pageLoaded }">
         <div class="brand-section" :class="{ 'fade-in': pageLoaded }">
           <div class="logo-container">
-            <img :src="AuthGuardLogo" alt="AuthGuard Logo" class="brand-logo" />
+            <div class="brand-logo">
+              <SafetyOutlined class="logo-icon" />
+            </div>
           </div>
           <h1 class="brand-title">AuthGuard Enterprise</h1>
           <p class="brand-subtitle">Plataforma de Autenticação e Autorização</p>
@@ -115,8 +117,7 @@
 <script setup lang="ts">
 import { ref, onMounted, getCurrentInstance } from 'vue';
 import { useRouter } from 'vue-router';
-import { CheckCircleFilled, MailOutlined, LockOutlined } from '@ant-design/icons-vue';
-import AuthGuardLogo from '../assets/logo.svg';
+import { CheckCircleFilled, MailOutlined, LockOutlined, SafetyOutlined } from '@ant-design/icons-vue';
 import { Cookies } from 'quasar';
 import { message } from 'ant-design-vue';
 import { AxiosError } from 'axios';
@@ -181,7 +182,7 @@ async function onLogin() {
       }
       Cookies.set('token', access_token, cookieOptions);
       message.success('Login realizado com sucesso!');
-      void router.push('/home');
+      void router.push('/dashboard');
     } else {
       message.error('Token não encontrado na resposta.');
       console.error('Token not found in response:', response.data);
@@ -265,12 +266,36 @@ function goToRegister() {
 }
 
 .brand-logo {
-  height: 72px; /* Set a fixed height for the SVG */
-  transition: transform 0.3s ease;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Melhorar renderização */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .brand-logo:hover {
-  transform: scale(1.05);
+  transform: scale(1.05) translateZ(0);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.logo-icon {
+  font-size: 36px;
+  color: white;
+  /* Melhorar renderização do ícone */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transform: translateZ(0);
 }
 
 .brand-title {
