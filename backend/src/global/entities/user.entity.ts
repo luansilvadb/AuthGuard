@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 import { Tenant } from './tenant.entity';
 
-@Entity({ schema: 'global' })
+@Entity('user')
 export class User {
   @PrimaryGeneratedColumn()
   id: number;

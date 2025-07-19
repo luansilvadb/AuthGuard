@@ -1,5 +1,6 @@
 import { defineBoot } from '#q-app/wrappers';
 import axios, { type AxiosInstance } from 'axios';
+import { useTenantStore } from 'src/stores/tenant-store';
 
 declare module 'vue' {
   interface ComponentCustomProperties {
@@ -26,6 +27,39 @@ export default defineBoot(({ app }) => {
   app.config.globalProperties.$api = api;
   // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
   //       so you can easily perform requests against your app's API
+
+  // Interceptor para adicionar headers de tenant automaticamente
+  api.interceptors.request.use((config) => {
+    // Verificar se a requisição precisa de headers de tenant
+    const needsTenantHeaders = config.url?.includes('/api/software/') || 
+                              config.url?.includes('/software/') ||
+                              config.url?.includes('/api/tenants/') ||
+                              config.url?.includes('/tenants/');
+    
+    if (needsTenantHeaders) {
+      // Importar o store dinamicamente para evitar problemas de SSR
+      try {
+        const tenantStore = useTenantStore();
+        const tenantHeaders = tenantStore.getTenantHeaders();
+        
+        if (tenantHeaders['X-Tenant-Slug']) {
+          if (config.headers && typeof config.headers.set === 'function') {
+            config.headers.set('X-Tenant-Slug', tenantHeaders['X-Tenant-Slug']);
+          } else if (config.headers && typeof config.headers === 'object') {
+            config.headers['X-Tenant-Slug'] = tenantHeaders['X-Tenant-Slug'];
+          }
+          // Nunca atribua um novo objeto a config.headers!
+        }
+      } catch (error) {
+        // Se não conseguir acessar o store, continua sem headers
+        console.warn('Não foi possível acessar o tenant store:', error);
+      }
+    }
+    
+    return config;
+  }, (error) => {
+    return Promise.reject(error instanceof Error ? error : new Error(String(error)));
+  });
 });
 
 export { api };

@@ -121,10 +121,12 @@ import { CheckCircleFilled, MailOutlined, LockOutlined, SafetyOutlined } from '@
 import { Cookies } from 'quasar';
 import { message } from 'ant-design-vue';
 import { AxiosError } from 'axios';
+import { useTenantStore } from '../stores/tenant-store';
 
 const router = useRouter();
 const formRef = ref();
 const pageLoaded = ref(false);
+const tenantStore = useTenantStore();
 
 const features = [
   'Autenticação Multi-Tenant',
@@ -172,7 +174,7 @@ async function onLogin() {
       email: loginForm.value.email,
       password: loginForm.value.password,
     });
-    const { access_token } = response.data;
+    const { access_token, user } = response.data;
     if (access_token) {
       const cookieOptions: Parameters<typeof Cookies.set>[2] = {
         secure: process.env.NODE_ENV === 'production',
@@ -181,8 +183,23 @@ async function onLogin() {
         cookieOptions.expires = 7; // 7 days
       }
       Cookies.set('token', access_token, cookieOptions);
+
+      // Carregar tenants do usuário no store
+      if (user && Array.isArray(user.tenants)) {
+        tenantStore.setUserTenants(user.tenants);
+
+        // Se o usuário tem tenants, definir o primeiro como ativo
+        if (user.tenants.length > 0) {
+          tenantStore.setCurrentTenant(user.tenants[0]);
+        }
+      }
+
       message.success('Login realizado com sucesso!');
-      void router.push('/dashboard');
+      if (user && Array.isArray(user.tenants) && user.tenants.length === 0) {
+        void router.push('/create-tenant');
+      } else {
+        void router.push('/dashboard');
+      }
     } else {
       message.error('Token não encontrado na resposta.');
       console.error('Token not found in response:', response.data);

@@ -6,10 +6,11 @@ import { AuthController } from './auth.controller';
 import { JwtStrategy } from './jwt.strategy';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../global/entities/user.entity';
+import { Tenant } from '../global/entities/tenant.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Tenant]),
     PassportModule,
     JwtModule.register({
       secret: 'secretKey', // Troque para variável de ambiente em produção

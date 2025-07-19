@@ -11,6 +11,10 @@ const routes: RouteRecordRaw[] = [
     component: () => import('pages/RegisterPage.vue'),
   },
   {
+    path: '/create-tenant',
+    component: () => import('pages/CreateTenantPage.vue'),
+  },
+  {
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
