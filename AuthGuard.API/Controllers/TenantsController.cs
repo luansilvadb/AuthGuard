@@ -77,7 +77,7 @@ public class TenantsController : ControllerBase
     /// Remove um tenant (soft delete)
     /// </summary>
     [HttpDelete("{id:guid}")]
-    public async Task<ActionResult> DeleteTenant(Guid id)
+    public ActionResult DeleteTenant(Guid id)
     {
         // TODO: Implementar comando de delete
         return NoContent();

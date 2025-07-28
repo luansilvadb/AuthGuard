@@ -38,7 +38,10 @@ public class HealthController : ControllerBase
                 status = canConnect ? "healthy" : "unhealthy",
                 timestamp = DateTime.UtcNow,
                 latency = stopwatch.ElapsedMilliseconds,
-                database = canConnect ? "connected" : "disconnected"
+                database = canConnect ? "connected" : "disconnected",
+                environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Unknown",
+                version = "v1.0.0",
+                uptime = Process.GetCurrentProcess().StartTime
             };
 
             _logger.LogInformation("Health check realizado - Status: {Status}, Latência: {Latency}ms", 
@@ -56,7 +59,8 @@ public class HealthController : ControllerBase
                 status = "unhealthy",
                 timestamp = DateTime.UtcNow,
                 latency = stopwatch.ElapsedMilliseconds,
-                error = ex.Message
+                error = ex.Message,
+                environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Unknown"
             });
         }
     }
@@ -92,7 +96,23 @@ public class HealthController : ControllerBase
             timestamp = DateTime.UtcNow,
             latency = stopwatch.ElapsedMilliseconds,
             database = canConnect ? "connected" : "disconnected",
-            details = canConnect ? "Database connection verified" : "Database connection failed"
+            details = canConnect ? "Database connection verified" : "Database connection failed",
+            environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Unknown",
+            machineName = Environment.MachineName,
+            osVersion = Environment.OSVersion.ToString(),
+            dotnetVersion = Environment.Version.ToString()
+        });
+    }
+
+    [HttpGet("ping")]
+    [ApiExplorerSettings(IgnoreApi = true)] // Oculta do Swagger
+    public IActionResult Ping()
+    {
+        return Ok(new
+        {
+            message = "pong",
+            timestamp = DateTime.UtcNow,
+            environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Unknown"
         });
     }
 } 

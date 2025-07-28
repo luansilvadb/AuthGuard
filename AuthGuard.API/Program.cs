@@ -94,14 +94,23 @@ try
     // Migração automática do banco de dados
     using (var scope = app.Services.CreateScope())
     {
-        var context = scope.ServiceProvider.GetRequiredService<AuthGuardDbContext>();
-        context.Database.Migrate();
-        Log.Information("✅ Migrações do banco de dados aplicadas com sucesso");
+        try
+        {
+            var context = scope.ServiceProvider.GetRequiredService<AuthGuardDbContext>();
+            context.Database.Migrate();
+            Log.Information("✅ Migrações do banco de dados aplicadas com sucesso");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "❌ Erro ao aplicar migrações do banco de dados");
+            // Não falhar a aplicação se a migração falhar
+        }
     }
 
     Log.Information("🌐 AuthGuard API iniciada com sucesso!");
-    Log.Information("📍 API: http://localhost:5134");
-    Log.Information("📚 Swagger: http://localhost:5134/swagger");
+    Log.Information("📍 Ambiente: {Environment}", app.Environment.EnvironmentName);
+    Log.Information("📍 API: http://localhost:80");
+    Log.Information("📚 Swagger: http://localhost:80/swagger");
 
     app.Run();
 }

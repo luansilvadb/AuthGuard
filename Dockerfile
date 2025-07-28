@@ -20,4 +20,12 @@ RUN dotnet publish "AuthGuard.API.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+# Configurar variáveis de ambiente para produção
+ENV ASPNETCORE_ENVIRONMENT=Production
+ENV ASPNETCORE_URLS=http://+:80
+
+# Criar diretório de logs
+RUN mkdir -p /app/logs
+
 ENTRYPOINT ["dotnet", "AuthGuard.API.dll"] 
