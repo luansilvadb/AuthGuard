@@ -1,0 +1,11 @@
+D:\AuthGuard\AuthGuard.Core\bin\Debug\net8.0\AuthGuard.Core.deps.json
+D:\AuthGuard\AuthGuard.Core\bin\Debug\net8.0\AuthGuard.Core.dll
+D:\AuthGuard\AuthGuard.Core\bin\Debug\net8.0\AuthGuard.Core.pdb
+D:\AuthGuard\AuthGuard.Core\obj\Debug\net8.0\AuthGuard.Core.GeneratedMSBuildEditorConfig.editorconfig
+D:\AuthGuard\AuthGuard.Core\obj\Debug\net8.0\AuthGuard.Core.AssemblyInfoInputs.cache
+D:\AuthGuard\AuthGuard.Core\obj\Debug\net8.0\AuthGuard.Core.AssemblyInfo.cs
+D:\AuthGuard\AuthGuard.Core\obj\Debug\net8.0\AuthGuard.Core.csproj.CoreCompileInputs.cache
+D:\AuthGuard\AuthGuard.Core\obj\Debug\net8.0\AuthGuard.Core.dll
+D:\AuthGuard\AuthGuard.Core\obj\Debug\net8.0\refint\AuthGuard.Core.dll
+D:\AuthGuard\AuthGuard.Core\obj\Debug\net8.0\AuthGuard.Core.pdb
+D:\AuthGuard\AuthGuard.Core\obj\Debug\net8.0\ref\AuthGuard.Core.dll

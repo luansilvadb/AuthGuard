@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "I4GMgOErTI6oiMKCyMfCXl2mn1ypbGjVV1/JcgsZVqQ=",
+  "Source": "AuthGuard.API",
+  "BasePath": "_content/AuthGuard.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

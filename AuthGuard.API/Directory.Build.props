@@ -1,0 +1,11 @@
+<Project>
+  <PropertyGroup>
+    <!-- Suprimir warnings de dependências -->
+    <NoWarn>$(NoWarn);NU1602;NU1603;NU1701</NoWarn>
+    
+    <!-- Configurações de compilação -->
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <WarningsNotAsErrors>NU1602;NU1603;NU1701</WarningsNotAsErrors>
+  </PropertyGroup>
+</Project> 

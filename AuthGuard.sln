@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthGuard.API", "AuthGuard.API\AuthGuard.API.csproj", "{4660378A-769C-40F3-B261-5718F17AE928}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthGuard.Core", "AuthGuard.Core\AuthGuard.Core.csproj", "{BDE38AC2-ED22-43A4-9354-2FA1469EE873}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthGuard.Infrastructure", "AuthGuard.Infrastructure\AuthGuard.Infrastructure.csproj", "{4BB10F2E-D68C-49F1-BF7C-D0A855F522CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthGuard.Application", "AuthGuard.Application\AuthGuard.Application.csproj", "{60C228AA-AF2B-4838-AA3B-E01A704B207C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthGuard.Domain", "AuthGuard.Domain\AuthGuard.Domain.csproj", "{1EE88D75-F9F0-4241-B319-72C55F556DCB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4660378A-769C-40F3-B261-5718F17AE928}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4660378A-769C-40F3-B261-5718F17AE928}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4660378A-769C-40F3-B261-5718F17AE928}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4660378A-769C-40F3-B261-5718F17AE928}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BDE38AC2-ED22-43A4-9354-2FA1469EE873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDE38AC2-ED22-43A4-9354-2FA1469EE873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDE38AC2-ED22-43A4-9354-2FA1469EE873}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDE38AC2-ED22-43A4-9354-2FA1469EE873}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BB10F2E-D68C-49F1-BF7C-D0A855F522CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BB10F2E-D68C-49F1-BF7C-D0A855F522CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BB10F2E-D68C-49F1-BF7C-D0A855F522CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BB10F2E-D68C-49F1-BF7C-D0A855F522CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60C228AA-AF2B-4838-AA3B-E01A704B207C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60C228AA-AF2B-4838-AA3B-E01A704B207C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60C228AA-AF2B-4838-AA3B-E01A704B207C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60C228AA-AF2B-4838-AA3B-E01A704B207C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1EE88D75-F9F0-4241-B319-72C55F556DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EE88D75-F9F0-4241-B319-72C55F556DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EE88D75-F9F0-4241-B319-72C55F556DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EE88D75-F9F0-4241-B319-72C55F556DCB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

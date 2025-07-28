@@ -1,0 +1,93 @@
+2025-07-28 04:38:51.352 -03:00 [INF] 🚀 Iniciando AuthGuard API...
+2025-07-28 04:38:51.392 -03:00 [INF] 📦 Configurando serviços...
+2025-07-28 04:38:51.425 -03:00 [INF] 🔧 Configurando pipeline HTTP...
+2025-07-28 04:38:51.428 -03:00 [INF] 📚 Swagger habilitado para desenvolvimento
+2025-07-28 04:38:51.466 -03:00 [INF] 🗄️ Verificando migrações do banco de dados...
+2025-07-28 04:38:52.321 -03:00 [INF] Executed DbCommand (42ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2025-07-28 04:38:52.347 -03:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2025-07-28 04:38:52.447 -03:00 [INF] Executed DbCommand (18ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2025-07-28 04:38:52.544 -03:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2025-07-28 04:38:52.560 -03:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2025-07-28 04:38:52.568 -03:00 [INF] No migrations were applied. The database is already up to date.
+2025-07-28 04:38:52.569 -03:00 [INF] ✅ Migrações do banco de dados aplicadas com sucesso
+2025-07-28 04:38:52.571 -03:00 [INF] 🌐 AuthGuard API iniciada com sucesso!
+2025-07-28 04:38:52.571 -03:00 [INF] 📍 Endpoints disponíveis:
+2025-07-28 04:38:52.571 -03:00 [INF]    - API: https://localhost:7094
+2025-07-28 04:38:52.571 -03:00 [INF]    - API (HTTP): http://localhost:5134
+2025-07-28 04:38:52.571 -03:00 [INF]    - Swagger: https://localhost:7094/swagger
+2025-07-28 04:38:52.579 -03:00 [INF] User profile is available. Using 'C:\Users\luanv\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-07-28 04:38:52.607 -03:00 [INF] Now listening on: http://localhost:5134
+2025-07-28 04:38:52.608 -03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-07-28 04:38:52.608 -03:00 [INF] Hosting environment: Development
+2025-07-28 04:38:52.608 -03:00 [INF] Content root path: D:\AuthGuard\AuthGuard.API
+2025-07-28 04:39:13.056 -03:00 [INF] 🚀 Iniciando AuthGuard API...
+2025-07-28 04:39:13.091 -03:00 [INF] 📦 Configurando serviços...
+2025-07-28 04:39:13.123 -03:00 [INF] 🔧 Configurando pipeline HTTP...
+2025-07-28 04:39:13.127 -03:00 [INF] 📚 Swagger habilitado para desenvolvimento
+2025-07-28 04:39:13.160 -03:00 [INF] 🗄️ Verificando migrações do banco de dados...
+2025-07-28 04:39:13.976 -03:00 [INF] Executed DbCommand (42ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2025-07-28 04:39:14.002 -03:00 [INF] Executed DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2025-07-28 04:39:14.102 -03:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2025-07-28 04:39:14.198 -03:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2025-07-28 04:39:14.214 -03:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2025-07-28 04:39:14.221 -03:00 [INF] No migrations were applied. The database is already up to date.
+2025-07-28 04:39:14.221 -03:00 [INF] ✅ Migrações do banco de dados aplicadas com sucesso
+2025-07-28 04:39:14.223 -03:00 [INF] 🌐 AuthGuard API iniciada com sucesso!
+2025-07-28 04:39:14.223 -03:00 [INF] 📍 Endpoints disponíveis:
+2025-07-28 04:39:14.223 -03:00 [INF]    - API: https://localhost:7094
+2025-07-28 04:39:14.223 -03:00 [INF]    - API (HTTP): http://localhost:5134
+2025-07-28 04:39:14.223 -03:00 [INF]    - Swagger: https://localhost:7094/swagger
+2025-07-28 04:39:14.231 -03:00 [INF] User profile is available. Using 'C:\Users\luanv\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-07-28 04:39:14.258 -03:00 [INF] Now listening on: http://localhost:5134
+2025-07-28 04:39:14.259 -03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-07-28 04:39:14.259 -03:00 [INF] Hosting environment: Development
+2025-07-28 04:39:14.260 -03:00 [INF] Content root path: D:\AuthGuard\AuthGuard.API
+2025-07-28 04:43:44.939 -03:00 [INF] Application is shutting down...

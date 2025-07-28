@@ -1,0 +1,15 @@
+D:\AuthGuard\AuthGuard.Application\obj\Debug\net8.0\AuthGuard.Application.csproj.AssemblyReference.cache
+D:\AuthGuard\AuthGuard.Application\obj\Debug\net8.0\AuthGuard.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\AuthGuard\AuthGuard.Application\obj\Debug\net8.0\AuthGuard.Application.AssemblyInfoInputs.cache
+D:\AuthGuard\AuthGuard.Application\obj\Debug\net8.0\AuthGuard.Application.AssemblyInfo.cs
+D:\AuthGuard\AuthGuard.Application\obj\Debug\net8.0\AuthGuard.Application.csproj.CoreCompileInputs.cache
+D:\AuthGuard\AuthGuard.Application\bin\Debug\net8.0\AuthGuard.Application.deps.json
+D:\AuthGuard\AuthGuard.Application\bin\Debug\net8.0\AuthGuard.Application.dll
+D:\AuthGuard\AuthGuard.Application\bin\Debug\net8.0\AuthGuard.Application.pdb
+D:\AuthGuard\AuthGuard.Application\bin\Debug\net8.0\AuthGuard.Domain.dll
+D:\AuthGuard\AuthGuard.Application\bin\Debug\net8.0\AuthGuard.Domain.pdb
+D:\AuthGuard\AuthGuard.Application\obj\Debug\net8.0\AuthGuar.EE0D65C5.Up2Date
+D:\AuthGuard\AuthGuard.Application\obj\Debug\net8.0\AuthGuard.Application.dll
+D:\AuthGuard\AuthGuard.Application\obj\Debug\net8.0\refint\AuthGuard.Application.dll
+D:\AuthGuard\AuthGuard.Application\obj\Debug\net8.0\AuthGuard.Application.pdb
+D:\AuthGuard\AuthGuard.Application\obj\Debug\net8.0\ref\AuthGuard.Application.dll
