@@ -17,3 +17,4 @@ D:\AuthGuard\AuthGuard.Infrastructure\obj\Debug\net8.0\refint\AuthGuard.Infrastr
 D:\AuthGuard\AuthGuard.Infrastructure\obj\Debug\net8.0\AuthGuard.Infrastructure.pdb
 D:\AuthGuard\AuthGuard.Infrastructure\obj\Debug\net8.0\AuthGuard.Infrastructure.genruntimeconfig.cache
 D:\AuthGuard\AuthGuard.Infrastructure\obj\Debug\net8.0\ref\AuthGuard.Infrastructure.dll
+D:\AuthGuard\AuthGuard.Infrastructure\obj\Debug\net8.0\AuthGuard.Infrastructure.sourcelink.json

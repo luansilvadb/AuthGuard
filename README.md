@@ -2,6 +2,15 @@
 
 Sistema completo de gestão multitenant para ecossistema SaaS B2B, desenvolvido em .NET 8 com PostgreSQL.
 
+## 📚 Documentação
+
+Toda a documentação detalhada do projeto está disponível na pasta **[docs](./docs/)**:
+
+- **[📋 Índice da Documentação](./docs/README.md)** - Visão geral de toda a documentação
+- **[🚀 Guia de Deploy](./docs/DEPLOYMENT.md)** - Como fazer deploy em produção
+- **[🔧 Solução de Problemas](./docs/SOLUCAO-PROBLEMA.md)** - Troubleshooting e soluções
+- **[🏗️ Estrutura Organizada](./docs/ESTRUTURA-ORGANIZADA.md)** - Arquitetura e organização do código
+
 ## 🏗️ Arquitetura
 
 O projeto segue a arquitetura Clean Architecture com os seguintes projetos:

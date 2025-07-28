@@ -13,3 +13,4 @@ D:\AuthGuard\AuthGuard.Application\obj\Debug\net8.0\AuthGuard.Application.dll
 D:\AuthGuard\AuthGuard.Application\obj\Debug\net8.0\refint\AuthGuard.Application.dll
 D:\AuthGuard\AuthGuard.Application\obj\Debug\net8.0\AuthGuard.Application.pdb
 D:\AuthGuard\AuthGuard.Application\obj\Debug\net8.0\ref\AuthGuard.Application.dll
+D:\AuthGuard\AuthGuard.Application\obj\Debug\net8.0\AuthGuard.Application.sourcelink.json

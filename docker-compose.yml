@@ -21,11 +21,10 @@ services:
       dockerfile: Dockerfile
     container_name: authguard-api
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Production
       - ConnectionStrings__DefaultConnection=Host=postgres;Database=authguard;Username=postgres;Password=postgres
     ports:
-      - "5000:80"
-      - "5001:443"
+      - "5000:5000"
     depends_on:
       - postgres
     networks:

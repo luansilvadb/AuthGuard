@@ -4,7 +4,7 @@
 
 - Docker instalado
 - Acesso ao banco de dados PostgreSQL
-- Porta 80 disponível
+- Porta 5000 disponível
 
 ## 🔧 Deploy com Docker
 
@@ -19,7 +19,7 @@ docker build -t authguard-api .
 ```bash
 docker run -d \
   --name authguard-api \
-  -p 80:80 \
+  -p 5000:5000 \
   -e ASPNETCORE_ENVIRONMENT=Production \
   -e ConnectionStrings__DefaultConnection="Host=vps.luansilva.com.br;Database=authguard;Username=postgres;Password=72b09a20c609e6baa62d;Pooling=true;MinPoolSize=1;MaxPoolSize=20;ConnectionIdleLifetime=300;ConnectionPruningInterval=10" \
   authguard-api
@@ -45,13 +45,13 @@ docker logs authguard-api
 
 ```bash
 # Testar se a aplicação está respondendo
-curl http://localhost:80/ping
+curl http://localhost:5000/ping
 
 # Verificar saúde da aplicação
-curl http://localhost:80/health
+curl http://localhost:5000/health
 
 # Acessar Swagger
-curl http://localhost:80/swagger
+curl http://localhost:5000/swagger
 ```
 
 ## 🔍 Troubleshooting
@@ -70,7 +70,7 @@ curl http://localhost:80/swagger
 
 3. **Verificar conectividade com banco**:
    ```bash
-   curl http://localhost:80/health/detailed
+   curl http://localhost:5000/health/detailed
    ```
 
 ### Problema: Erro de conexão com banco
@@ -133,7 +133,7 @@ curl http://localhost:80/swagger
    ```bash
    docker run -d \
      --name authguard-api \
-     -p 80:80 \
+     -p 5000:5000 \
      -e ASPNETCORE_ENVIRONMENT=Production \
      -e ConnectionStrings__DefaultConnection="Host=vps.luansilva.com.br;Database=authguard;Username=postgres;Password=72b09a20c609e6baa62d;Pooling=true;MinPoolSize=1;MaxPoolSize=20;ConnectionIdleLifetime=300;ConnectionPruningInterval=10" \
      authguard-api
@@ -146,4 +146,4 @@ Se os problemas persistirem:
 1. Verifique os logs completos
 2. Teste a conectividade com o banco
 3. Verifique se todas as variáveis de ambiente estão configuradas
-4. Confirme se a porta 80 está disponível e não bloqueada 
+4. Confirme se a porta 5000 está disponível e não bloqueada 

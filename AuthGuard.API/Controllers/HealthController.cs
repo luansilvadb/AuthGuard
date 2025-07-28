@@ -115,4 +115,23 @@ public class HealthController : ControllerBase
             environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Unknown"
         });
     }
+
+    [HttpGet("test")]
+    public IActionResult Test()
+    {
+        return Ok(new
+        {
+            message = "AuthGuard API está funcionando!",
+            timestamp = DateTime.UtcNow,
+            version = "v1.0.0",
+            endpoints = new[]
+            {
+                "/health",
+                "/health/detailed", 
+                "/ping",
+                "/swagger",
+                "/api/tenants"
+            }
+        });
+    }
 } 

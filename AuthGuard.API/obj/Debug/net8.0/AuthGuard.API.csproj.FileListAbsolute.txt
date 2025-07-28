@@ -71,3 +71,4 @@ D:\AuthGuard\AuthGuard.API\obj\Debug\net8.0\ref\AuthGuard.API.dll
 D:\AuthGuard\AuthGuard.API\bin\Debug\net8.0\appsettings.Production.json
 D:\AuthGuard\AuthGuard.API\bin\Debug\net8.0\Serilog.Enrichers.Environment.dll
 D:\AuthGuard\AuthGuard.API\bin\Debug\net8.0\Serilog.Enrichers.Thread.dll
+D:\AuthGuard\AuthGuard.API\obj\Debug\net8.0\AuthGuard.API.sourcelink.json

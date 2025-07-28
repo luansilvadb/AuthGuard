@@ -874,3 +874,66 @@ POSITION: 28
 2025-07-28 05:10:40.404 -03:00 [INF] LUAN [3] 📥 GET http://localhost:5134/ iniciado por ::1 | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
 2025-07-28 05:10:40.537 -03:00 [INF] LUAN [13] Health check realizado - Status: healthy, Latência: 122ms
 2025-07-28 05:10:40.563 -03:00 [INF] LUAN [13] 📤 GET http://localhost:5134/ concluído com status 200 em 163ms
+2025-07-28 05:25:52.126 -03:00 [INF] LUAN [1] 🚀 Iniciando AuthGuard API...
+2025-07-28 05:25:53.453 -03:00 [INF] LUAN [1] ✅ Migrações do banco de dados aplicadas com sucesso
+2025-07-28 05:25:53.455 -03:00 [INF] LUAN [1] 🌐 AuthGuard API iniciada com sucesso!
+2025-07-28 05:25:53.456 -03:00 [INF] LUAN [1] 📍 Ambiente: Development
+2025-07-28 05:25:53.457 -03:00 [INF] LUAN [1] 📍 API: http://localhost:80
+2025-07-28 05:25:53.457 -03:00 [INF] LUAN [1] 📚 Swagger: http://localhost:80/swagger
+2025-07-28 05:26:50.861 -03:00 [INF] LUAN [1] 🚀 Iniciando AuthGuard API...
+2025-07-28 05:26:52.125 -03:00 [INF] LUAN [1] ✅ Migrações do banco de dados aplicadas com sucesso
+2025-07-28 05:26:52.127 -03:00 [INF] LUAN [1] 🌐 AuthGuard API iniciada com sucesso!
+2025-07-28 05:26:52.128 -03:00 [INF] LUAN [1] 📍 Ambiente: Development
+2025-07-28 05:26:52.129 -03:00 [INF] LUAN [1] 📍 API: http://localhost:5000
+2025-07-28 05:26:52.130 -03:00 [INF] LUAN [1] 📚 Swagger: http://localhost:5000/swagger
+2025-07-28 05:28:11.187 -03:00 [INF] LUAN [1] 🚀 Iniciando AuthGuard API...
+2025-07-28 05:28:12.396 -03:00 [INF] LUAN [1] ✅ Migrações do banco de dados aplicadas com sucesso
+2025-07-28 05:28:12.398 -03:00 [INF] LUAN [1] 🌐 AuthGuard API iniciada com sucesso!
+2025-07-28 05:28:12.399 -03:00 [INF] LUAN [1] 📍 Ambiente: Development
+2025-07-28 05:28:12.400 -03:00 [INF] LUAN [1] 📍 API: http://localhost:5000
+2025-07-28 05:28:12.401 -03:00 [INF] LUAN [1] 📚 Swagger: http://localhost:5000/swagger
+2025-07-28 05:28:14.181 -03:00 [INF] LUAN [6] 📥 GET http://localhost:5000/ iniciado por ::1 | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+2025-07-28 05:28:14.300 -03:00 [INF] LUAN [6] Health check realizado - Status: healthy, Latência: 102ms
+2025-07-28 05:28:14.326 -03:00 [INF] LUAN [6] 📤 GET http://localhost:5000/ concluído com status 200 em 149ms
+2025-07-28 05:28:14.453 -03:00 [INF] LUAN [9] 📥 GET http://localhost:5000/favicon.ico iniciado por ::1 | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+2025-07-28 05:28:14.455 -03:00 [WRN] LUAN [9] 📤 GET http://localhost:5000/favicon.ico concluído com status 404 em 2ms
+2025-07-28 05:31:49.248 -03:00 [INF] LUAN [1] 🚀 Iniciando AuthGuard API...
+2025-07-28 05:31:49.271 -03:00 [INF] LUAN [1] 🔧 Configurando serviços...
+2025-07-28 05:31:49.300 -03:00 [INF] LUAN [1] ✅ Serviços configurados com sucesso
+2025-07-28 05:31:49.319 -03:00 [INF] LUAN [1] 🔧 Configurando pipeline de requisições...
+2025-07-28 05:31:50.530 -03:00 [INF] LUAN [1] ✅ Migrações do banco de dados aplicadas com sucesso
+2025-07-28 05:31:50.532 -03:00 [INF] LUAN [1] ✅ Pipeline configurado com sucesso
+2025-07-28 05:31:50.533 -03:00 [INF] LUAN [1] 🌐 AuthGuard API iniciada com sucesso!
+2025-07-28 05:31:50.534 -03:00 [INF] LUAN [1] 📍 Ambiente: Development
+2025-07-28 05:31:50.535 -03:00 [INF] LUAN [1] 📍 API: http://localhost:5000
+2025-07-28 05:31:50.535 -03:00 [INF] LUAN [1] 📚 Swagger: http://localhost:5000/swagger
+2025-07-28 05:31:56.337 -03:00 [INF] LUAN [10] 📥 GET http://localhost:5000/ iniciado por ::1 | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+2025-07-28 05:31:56.471 -03:00 [INF] LUAN [10] Health check realizado - Status: healthy, Latência: 113ms
+2025-07-28 05:31:56.501 -03:00 [INF] LUAN [10] 📤 GET http://localhost:5000/ concluído com status 200 em 167ms
+2025-07-28 05:32:00.130 -03:00 [INF] LUAN [11] 📥 GET http://localhost:5000/ iniciado por ::1 | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+2025-07-28 05:32:00.276 -03:00 [INF] LUAN [11] Health check realizado - Status: healthy, Latência: 143ms
+2025-07-28 05:32:00.278 -03:00 [INF] LUAN [11] 📤 GET http://localhost:5000/ concluído com status 200 em 147ms
+2025-07-28 05:32:12.588 -03:00 [INF] LUAN [1] 🚀 Iniciando AuthGuard API...
+2025-07-28 05:32:12.611 -03:00 [INF] LUAN [1] 🔧 Configurando serviços...
+2025-07-28 05:32:12.648 -03:00 [INF] LUAN [1] ✅ Serviços configurados com sucesso
+2025-07-28 05:32:12.667 -03:00 [INF] LUAN [1] 🔧 Configurando pipeline de requisições...
+2025-07-28 05:32:13.885 -03:00 [INF] LUAN [1] ✅ Migrações do banco de dados aplicadas com sucesso
+2025-07-28 05:32:13.887 -03:00 [INF] LUAN [1] ✅ Pipeline configurado com sucesso
+2025-07-28 05:32:13.887 -03:00 [INF] LUAN [1] 🌐 AuthGuard API iniciada com sucesso!
+2025-07-28 05:32:13.888 -03:00 [INF] LUAN [1] 📍 Ambiente: Development
+2025-07-28 05:32:13.889 -03:00 [INF] LUAN [1] 📍 API: http://localhost:5000
+2025-07-28 05:32:13.890 -03:00 [INF] LUAN [1] 📚 Swagger: http://localhost:5000/swagger
+2025-07-28 05:32:22.720 -03:00 [INF] LUAN [1] 🚀 Iniciando AuthGuard API...
+2025-07-28 05:32:22.745 -03:00 [INF] LUAN [1] 🔧 Configurando serviços...
+2025-07-28 05:32:22.777 -03:00 [INF] LUAN [1] ✅ Serviços configurados com sucesso
+2025-07-28 05:32:22.797 -03:00 [INF] LUAN [1] 🔧 Configurando pipeline de requisições...
+2025-07-28 05:32:24.022 -03:00 [INF] LUAN [1] ✅ Migrações do banco de dados aplicadas com sucesso
+2025-07-28 05:32:24.024 -03:00 [INF] LUAN [1] ✅ Pipeline configurado com sucesso
+2025-07-28 05:32:24.025 -03:00 [INF] LUAN [1] 🌐 AuthGuard API iniciada com sucesso!
+2025-07-28 05:32:24.025 -03:00 [INF] LUAN [1] 📍 Ambiente: Development
+2025-07-28 05:32:24.026 -03:00 [INF] LUAN [1] 📍 API: http://localhost:5000
+2025-07-28 05:32:24.027 -03:00 [INF] LUAN [1] 📚 Swagger: http://localhost:5000/swagger
+2025-07-28 05:32:25.608 -03:00 [INF] LUAN [10] 📥 GET http://localhost:5000/test iniciado por ::1 | User-Agent: curl/8.8.0
+2025-07-28 05:32:25.647 -03:00 [INF] LUAN [10] 📤 GET http://localhost:5000/test concluído com status 200 em 41ms
+2025-07-28 05:32:33.393 -03:00 [INF] LUAN [11] 📥 GET http://localhost:5000/health iniciado por ::1 | User-Agent: curl/8.8.0
+2025-07-28 05:32:33.540 -03:00 [INF] LUAN [11] 📤 GET http://localhost:5000/health concluído com status 200 em 147ms

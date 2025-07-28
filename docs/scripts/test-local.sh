@@ -1,11 +1,11 @@
 #!/bin/bash
 
-echo "🔍 Testando deploy da AuthGuard API..."
+echo "🔍 Testando AuthGuard API localmente..."
 
 # Configurações
-API_URL="http://localhost:80"
-MAX_RETRIES=30
-RETRY_INTERVAL=2
+API_URL="http://localhost:5000"
+MAX_RETRIES=10
+RETRY_INTERVAL=3
 
 echo "📍 URL da API: $API_URL"
 echo "⏳ Aguardando aplicação inicializar..."
@@ -22,6 +22,7 @@ for i in $(seq 1 $MAX_RETRIES); do
     
     if [ $i -eq $MAX_RETRIES ]; then
         echo "❌ Aplicação não está respondendo após $MAX_RETRIES tentativas"
+        echo "💡 Verifique se a aplicação está rodando com: dotnet run"
         exit 1
     fi
     
@@ -29,24 +30,25 @@ for i in $(seq 1 $MAX_RETRIES); do
 done
 
 echo ""
-echo "🧪 Executando testes de saúde..."
+echo "🧪 Executando testes..."
 
-# Testar health check básico
-echo "📊 Health Check Básico:"
+# Testar endpoint de teste
+echo "📊 Teste da API:"
+curl -s "$API_URL/test" | jq '.' 2>/dev/null || curl -s "$API_URL/test"
+
+echo ""
+echo "📊 Health Check:"
 curl -s "$API_URL/health" | jq '.' 2>/dev/null || curl -s "$API_URL/health"
 
 echo ""
-echo "📊 Health Check Detalhado:"
-curl -s "$API_URL/health/detailed" | jq '.' 2>/dev/null || curl -s "$API_URL/health/detailed"
-
-echo ""
-echo "📊 Health Check Completo:"
-curl -s "$API_URL/" | jq '.' 2>/dev/null || curl -s "$API_URL/"
+echo "📊 Ping:"
+curl -s "$API_URL/ping" | jq '.' 2>/dev/null || curl -s "$API_URL/ping"
 
 echo ""
 echo "📚 Testando Swagger:"
 if curl -s -f "$API_URL/swagger" > /dev/null 2>&1; then
     echo "✅ Swagger está disponível em: $API_URL/swagger"
+    echo "🌐 Abra no navegador: $API_URL/swagger"
 else
     echo "⚠️  Swagger não está disponível"
 fi
@@ -54,4 +56,5 @@ fi
 echo ""
 echo "🎉 Testes concluídos!"
 echo "📍 API está funcionando em: $API_URL"
-echo "📚 Swagger: $API_URL/swagger" 
+echo "📚 Swagger: $API_URL/swagger"
+echo "🧪 Teste: $API_URL/test" 

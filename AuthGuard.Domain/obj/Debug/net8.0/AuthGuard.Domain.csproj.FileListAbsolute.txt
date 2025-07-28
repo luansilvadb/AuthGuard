@@ -10,3 +10,4 @@ D:\AuthGuard\AuthGuard.Domain\obj\Debug\net8.0\AuthGuard.Domain.dll
 D:\AuthGuard\AuthGuard.Domain\obj\Debug\net8.0\refint\AuthGuard.Domain.dll
 D:\AuthGuard\AuthGuard.Domain\obj\Debug\net8.0\AuthGuard.Domain.pdb
 D:\AuthGuard\AuthGuard.Domain\obj\Debug\net8.0\ref\AuthGuard.Domain.dll
+D:\AuthGuard\AuthGuard.Domain\obj\Debug\net8.0\AuthGuard.Domain.sourcelink.json
