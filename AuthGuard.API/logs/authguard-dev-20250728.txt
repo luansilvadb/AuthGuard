@@ -866,3 +866,11 @@ POSITION: 28
 2025-07-28 05:08:48.627 -03:00 [INF] LUAN [6] 📥 GET http://localhost:5134/ iniciado por ::1 | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
 2025-07-28 05:08:48.710 -03:00 [INF] LUAN [6] Health check realizado - Status: healthy, Latência: 81ms
 2025-07-28 05:08:48.711 -03:00 [INF] LUAN [6] 📤 GET http://localhost:5134/ concluído com status 200 em 83ms
+2025-07-28 05:10:33.674 -03:00 [INF] LUAN [1] 🚀 Iniciando AuthGuard API...
+2025-07-28 05:10:34.911 -03:00 [INF] LUAN [1] ✅ Migrações do banco de dados aplicadas com sucesso
+2025-07-28 05:10:34.913 -03:00 [INF] LUAN [1] 🌐 AuthGuard API iniciada com sucesso!
+2025-07-28 05:10:34.914 -03:00 [INF] LUAN [1] 📍 API: http://localhost:5134
+2025-07-28 05:10:34.914 -03:00 [INF] LUAN [1] 📚 Swagger: http://localhost:5134/swagger
+2025-07-28 05:10:40.404 -03:00 [INF] LUAN [3] 📥 GET http://localhost:5134/ iniciado por ::1 | User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36
+2025-07-28 05:10:40.537 -03:00 [INF] LUAN [13] Health check realizado - Status: healthy, Latência: 122ms
+2025-07-28 05:10:40.563 -03:00 [INF] LUAN [13] 📤 GET http://localhost:5134/ concluído com status 200 em 163ms
